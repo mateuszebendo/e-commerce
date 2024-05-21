@@ -2,8 +2,11 @@ package org.br.serratec.ecommerce.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -42,11 +47,20 @@ public class Pedido {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(
+	    name = "pedido_item_pedido",
+	    joinColumns = @JoinColumn(name = "pedido_id"),
+	    inverseJoinColumns = @JoinColumn(name = "item_pedido_id")
+	)
+	private List<ItemPedido> itensPedido;
+
 	public Pedido() {
 	}
 
 	public Pedido(PedidoDTO pedidoDTO) {
-		this.dataPedido = pedidoDTO.dataPedido();
+		this.dataPedido = LocalDateTime.now();
 		this.dataEntrega = pedidoDTO.dataEntrega();
 		this.dataEnvio = pedidoDTO.dataEnvio();
 		this.status = pedidoDTO.status();

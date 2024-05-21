@@ -54,6 +54,6 @@ public class ClienteController {
 		if  (clienteDeletado != null) {
 			return new ResponseEntity<> (clienteDeletado, HttpStatus.OK);
 		}
-		return new ResponseEntity<>("{Erro: Perfil não encontrado}", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("{Erro: Cliente não encontrado}", HttpStatus.NOT_FOUND);
 	}
 }

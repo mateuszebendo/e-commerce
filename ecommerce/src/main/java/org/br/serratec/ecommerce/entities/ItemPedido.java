@@ -28,21 +28,17 @@ public class ItemPedido {
     @Column(name="valor_liquido")
     private Double valorLiquido;
 
-    @ManyToMany
-    @JoinTable(
-            name="pedido",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_pedido_id")
-    )
+    @ManyToMany(mappedBy = "itensPedido")
     private List<Pedido> pedidos;
 
-    @OneToMany(mappedBy = "ItemPedido")
-    private List<Produto> produtos;
+    @ManyToOne
+    @JoinColumn(name="produto_id")
+    private Produto produto;
 
 
     public ItemPedido(ItemPedidoDTO itemPedidoDTO) {
         this.itemPedidoID = itemPedidoDTO.id();
-        this.produtos = itemPedidoDTO.produtos();
+        this.produto = itemPedidoDTO.produto();
         this.pedidos = itemPedidoDTO.pedidos();
         this.valorLiquido = itemPedidoDTO.valorLiquido();
         this.valorBruto = itemPedidoDTO.valorBruto();
@@ -108,11 +104,11 @@ public class ItemPedido {
         this.pedidos = pedidos;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public Produto getProdutos() {
+        return produto;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setProdutos(Produto produto) {
+        this.produto = produto;
     }
 }
