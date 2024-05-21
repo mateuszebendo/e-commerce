@@ -14,6 +14,6 @@ public record ItemPedidoDTO(
         Double valorBruto,
         Double valorLiquido,
         List<Pedido> pedidos,
-        List<Produto> produtos
+        Produto produto
 ) {
 }
