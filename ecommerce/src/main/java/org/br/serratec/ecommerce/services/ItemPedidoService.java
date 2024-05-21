@@ -43,12 +43,16 @@ public class ItemPedidoService {
         return ListItemPedidoDTO;
     }
 
-    public ItemPedido update (ItemPedidoDTO itemPedidoDTO){
-        return itemPedidoRepository.save(new ItemPedido(itemPedidoDTO));
+    public ItemPedidoDTO update (ItemPedidoDTO itemPedidoDTO){
+        ItemPedido itemPedidoSaved = itemPedidoRepository.save(new ItemPedido(itemPedidoDTO));
+        ItemPedidoDTO newItemPedidoDTO;
+        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        return newItemPedidoDTO;
     }
 
     public ItemPedidoDTO deleteById (Integer id){
         ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElse(null);
+        itemPedidoRepository.deleteById(id);
         ItemPedidoDTO newItemPedidoDTO;
         newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
