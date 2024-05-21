@@ -2,48 +2,37 @@ package org.br.serratec.ecommerce.entities;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "cliente")
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "clienteId",
-		scope = Cliente.class
-		)
-
 public class Cliente {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cliente_id")
-	private Integer cliente;
-	
-	@Email(message = "Preencha o campo email corretamente exemplo@exemplo")
+	private Integer clienteId;
+
 	@Column(name = "email", unique = true)
 	private String email;
-	
+
 	@Column(name = "nome_completo")
 	private String nomeCompleto;
-	
+
 	@Column(name = "cpf")
 	private String cpf;
-	
+
 	@Column(name = "telefone")
 	private String telefone;
-	
+
 	@Column(name = "data_nascimento")
-	private LocalDate data_nascimento;
-	
+	private LocalDate dataNascimento;
+
 	@Column(name = "endereco")
 	private String endereco;
 
@@ -51,23 +40,23 @@ public class Cliente {
 		super();
 	}
 
-	public Cliente(Integer cliente, String email, String nomeCompleto, String cpf, String telefone,
-			LocalDate data_nascimento, String endereco) {
-		this.cliente = cliente;
+	public Cliente(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
+			LocalDate dataNascimento, String endereco) {
+		this.clienteId = clienteId;
 		this.email = email;
 		this.nomeCompleto = nomeCompleto;
 		this.cpf = cpf;
 		this.telefone = telefone;
-		this.data_nascimento = data_nascimento;
+		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
 	}
 
 	public Integer getCliente() {
-		return cliente;
+		return clienteId;
 	}
 
-	public void setCliente(Integer cliente) {
-		this.cliente = cliente;
+	public void setCliente(Integer clienteId) {
+		this.clienteId = clienteId;
 	}
 
 	public String getEmail() {
@@ -103,11 +92,11 @@ public class Cliente {
 	}
 
 	public LocalDate getData_nascimento() {
-		return data_nascimento;
+		return dataNascimento;
 	}
 
 	public void setData_nascimento(LocalDate data_nascimento) {
-		this.data_nascimento = data_nascimento;
+		this.dataNascimento = data_nascimento;
 	}
 
 	public String getEndereco() {
@@ -117,5 +106,5 @@ public class Cliente {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
+
 }
