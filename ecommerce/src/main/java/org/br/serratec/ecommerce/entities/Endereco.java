@@ -2,6 +2,8 @@ package org.br.serratec.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.br.serratec.ecommerce.dtos.EnderecoDTO;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,7 +36,7 @@ public class Endereco {
 	private String cidade;
 
 	@Column(name = "numero")
-	private Integer numero;
+	private String numero;
 
 	@Column(name = "complemento")
 	private String complemento;
@@ -46,22 +48,19 @@ public class Endereco {
 	private Cliente cliente;
 
 	public Endereco() {
-		super();
 	}
 
-	public Endereco(Integer enderecoId, String cep, String rua, String bairro, String cidade, Integer numero,
-			String complemento, String uf, Cliente cliente) {
-		super();
-		this.enderecoId = enderecoId;
-		this.cep = cep;
-		this.rua = rua;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.uf = uf;
-		this.cliente = cliente;
-	}
+	public Endereco (EnderecoDTO enderecoDTO){
+        this.enderecoId = enderecoDTO.getenderecoId();
+        this.cep = enderecoDTO.getCep();
+        this.rua = enderecoDTO.getRua();
+        this.bairro = enderecoDTO.getBairro();
+        this.cidade = enderecoDTO.getCidade();
+        this.numero = enderecoDTO.getNumero();
+        this.complemento = enderecoDTO.getComplemento();
+        this.uf = enderecoDTO.getUf();
+        this.cliente = enderecoDTO.getCliente();
+    }
 
 	public Integer getEnderecoId() {
 		return enderecoId;
@@ -103,11 +102,11 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -134,5 +133,4 @@ public class Endereco {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.br.serratec.ecommerce.dtos.CategoriaDTO;
 
 
 @Entity
@@ -23,10 +24,10 @@ public class Categoria {
 	public Categoria() {
 	}
 
-	public Categoria(Integer categoriaId, String nome, String descricao) {
-		this.categoriaId = categoriaId;
-		this.nome = nome;
-		this.descricao = descricao;
+	public Categoria(CategoriaDTO categoriaDTO) {
+		this.categoriaId = categoriaDTO.getId();
+		this.nome = categoriaDTO.getNome();
+		this.descricao = categoriaDTO.getDescricao();
 	}
 
 	public Integer getCategoriaId() {

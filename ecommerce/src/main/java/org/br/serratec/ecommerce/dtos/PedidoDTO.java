@@ -85,4 +85,5 @@ public class PedidoDTO{
 	public void setItensPedido(List<ItemPedido> itensPedido) {
 		this.itensPedido = itensPedido;
 	}
+
 }

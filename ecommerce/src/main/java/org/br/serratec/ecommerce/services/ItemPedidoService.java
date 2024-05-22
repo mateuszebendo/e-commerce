@@ -20,16 +20,23 @@ public class ItemPedidoService {
     ModelMapper modelMapper;
 
     public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO){
+        var newItemPedido = new ItemPedido(itemPedidoDTO);
+
+        newItemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+        double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
+        newItemPedido.setValorBruto(valorBruto);
+
+        double valorLiquido = newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto();
+        newItemPedido.setValorLiquido(valorLiquido);
+
         ItemPedido itemPedidoSaved = itemPedidoRepository.save(new ItemPedido(itemPedidoDTO));
-        ItemPedidoDTO newItemPedidoDTO;
-        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
 
     public ItemPedidoDTO findById (Integer id){
         ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElse(null);
-        ItemPedidoDTO newItemPedidoDTO;
-        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
 
@@ -44,17 +51,24 @@ public class ItemPedidoService {
     }
 
     public ItemPedidoDTO update (ItemPedidoDTO itemPedidoDTO){
-        ItemPedido itemPedidoSaved = itemPedidoRepository.save(new ItemPedido(itemPedidoDTO));
-        ItemPedidoDTO newItemPedidoDTO;
-        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        var newItemPedido = modelMapper.map(itemPedidoDTO, ItemPedido.class);
+
+        newItemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+        double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
+        newItemPedido.setValorBruto(valorBruto);
+
+        double valorLiquido = newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto();
+        newItemPedido.setValorLiquido(valorLiquido);
+
+        ItemPedido itemPedidoSaved = itemPedidoRepository.save(newItemPedido);
+        ItemPedidoDTO newItemPedidoDTO= modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
 
     public ItemPedidoDTO deleteById (Integer id){
         ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElse(null);
         itemPedidoRepository.deleteById(id);
-        ItemPedidoDTO newItemPedidoDTO;
-        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
 }
