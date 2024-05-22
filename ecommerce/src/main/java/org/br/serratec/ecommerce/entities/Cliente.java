@@ -34,18 +34,16 @@ public class Cliente {
 
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
-
+  
+  
 	@Column(name = "endereco")
 	private Endereco endereco;
-	
-	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos;
 
 	public Cliente() {
 	}
   
 	public Cliente(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
-			LocalDate dataNascimento, String endereco) {
+			LocalDate dataNascimento, Endereco endereco) {
 		this.clienteId = clienteId;
 		this.email = email;
 		this.nomeCompleto = nomeCompleto;
@@ -103,11 +101,11 @@ public class Cliente {
 		this.dataNascimento = dataNascimento;
 	}
 
-	protected Endereco getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	protected void setEndereco(Endereco endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 

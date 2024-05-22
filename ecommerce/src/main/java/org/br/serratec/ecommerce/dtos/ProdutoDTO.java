@@ -5,7 +5,7 @@ import org.br.serratec.ecommerce.entities.Categoria;
 import java.time.LocalDateTime;
 
 public class ProdutoDTO {
-
+    private Integer produtoId;
     private String nomeDescricao;
     private Integer qtdEstoque;
     private LocalDateTime dataCadastro;
@@ -21,6 +21,14 @@ public class ProdutoDTO {
         this.dataCadastro = dataCadastro;
         this.valorUnitario = valorUnitario;
         this.categoria = categoria;
+    }
+
+    public Integer getProdutoId() {
+        return produtoId;
+    }
+
+    public void setProdutoId(Integer produtoId) {
+        this.produtoId = produtoId;
     }
 
     public String getNomeDescricao() {

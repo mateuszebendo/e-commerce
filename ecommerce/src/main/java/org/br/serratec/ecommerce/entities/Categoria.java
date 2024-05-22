@@ -11,8 +11,8 @@ import jakarta.persistence.Table;
 public class Categoria {
 
 	@Id
-	@Column(name="id_categoria")
-	private Integer idCategoria;
+	@Column(name="categoria_id")
+	private Integer categoriaId;
 
 	@Column(name="nome")
 	private String nome;
@@ -21,22 +21,20 @@ public class Categoria {
 	private String descricao;
 
 	public Categoria() {
-		super();
 	}
 
-	public Categoria(Integer idCategoria, String nome, String descricao) {
-		super();
-		this.idCategoria = idCategoria;
+	public Categoria(Integer categoriaId, String nome, String descricao) {
+		this.categoriaId = categoriaId;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public Integer getIdCategoria() {
-		return idCategoria;
+	public Integer getCategoriaId() {
+		return categoriaId;
 	}
 
-	public void setIdCategoria(Integer idCategoria) {
-		this.idCategoria = idCategoria;
+	public void setCategoriaId(Integer idCategoria) {
+		this.categoriaId = categoriaId;
 	}
 
 	public String getNome() {
