@@ -42,7 +42,6 @@ public class Cliente {
 
 	public Cliente() {
 	}
-<<<<<<< HEAD
   
 	public Cliente(ClienteDTO clienteDto) {
 		this.clienteId = clienteDto.getClienteId();
@@ -52,19 +51,8 @@ public class Cliente {
 		this.telefone = clienteDto.getTelefone();
 		this.dataNascimento = clienteDto.getDataNascimento();
 		this.endereco = clienteDto.getEndereco();
-=======
-
-	public Cliente(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
-			LocalDate dataNascimento, Endereco endereco) {
-		this.clienteId = clienteId;
-		this.email = email;
-		this.nomeCompleto = nomeCompleto;
-		this.cpf = cpf;
-		this.telefone = telefone;
-		this.dataNascimento = dataNascimento;
-		this.endereco = endereco;
->>>>>>> 1d26aad27f22ae6d01c89201f2071c54fcd5b259
 	}
+
 
 	public Integer getCliente() {
 		return clienteId;
