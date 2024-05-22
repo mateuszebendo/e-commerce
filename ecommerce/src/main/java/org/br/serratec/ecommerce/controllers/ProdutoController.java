@@ -1,15 +1,17 @@
 package org.br.serratec.ecommerce.controllers;
 
-import org.br.serratec.ecommerce.dtos.PedidoDTO;
 import org.br.serratec.ecommerce.dtos.ProdutoDTO;
 import org.br.serratec.ecommerce.entities.Produto;
-import org.br.serratec.ecommerce.repositories.ProdutoRepository;
-import org.br.serratec.ecommerce.services.PedidoService;
+
 import org.br.serratec.ecommerce.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class ProdutoController {
     public ResponseEntity<List<ProdutoDTO>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.findAll());
     }
-
+  
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoDTO> findById(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.findById(id));
