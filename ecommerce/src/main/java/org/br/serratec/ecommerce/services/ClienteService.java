@@ -29,19 +29,6 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
-	public Cliente deletePerfil(Cliente cliente) {
-		try {
-			if(clienteRepository.existsById(cliente.getCliente())) {
-
-			clienteRepository.deleteById(cliente.getCliente());
-			return cliente;
-			}
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		return cliente;
-	}
-
 	public Cliente deleteById(Integer id) {
 		Cliente cliente = clienteRepository.findById(id).orElse(null);
 		try {

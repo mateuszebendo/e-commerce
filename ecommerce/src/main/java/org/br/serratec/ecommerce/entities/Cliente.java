@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,15 +35,15 @@ public class Cliente {
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 
-	@Column(name = "endereco")
-	private String endereco;
+	@OneToOne
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
 
 	public Cliente() {
-		super();
 	}
 
 	public Cliente(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
-			LocalDate dataNascimento, String endereco) {
+			LocalDate dataNascimento, Endereco endereco) {
 		this.clienteId = clienteId;
 		this.email = email;
 		this.nomeCompleto = nomeCompleto;
@@ -63,48 +65,47 @@ public class Cliente {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	protected void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getNomeCompleto() {
+	protected String getNomeCompleto() {
 		return nomeCompleto;
 	}
 
-	public void setNomeCompleto(String nomeCompleto) {
+	protected void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}
 
-	public String getCpf() {
+	protected String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	protected void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	public String getTelefone() {
+	protected String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	protected void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
-	public LocalDate getData_nascimento() {
+	protected LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setData_nascimento(LocalDate data_nascimento) {
-		this.dataNascimento = data_nascimento;
+	protected void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
 }

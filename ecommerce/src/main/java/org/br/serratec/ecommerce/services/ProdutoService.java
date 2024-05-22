@@ -48,6 +48,14 @@ public class ProdutoService {
     }
 
     public ProdutoDTO deleteById(Integer id) {
-        return null;
+        Produto produto = produtoRepository.findById(id).orElse(null);
+        ProdutoDTO produtoDtoDeleted;
+        produtoDtoDeleted = modelMapper.map(produto, ProdutoDTO.class);
+
+        if(produto != null) {
+            produtoRepository.delete(produto);
+            return produtoDtoDeleted;
+        }
+        return produtoDtoDeleted;
     }
 }
