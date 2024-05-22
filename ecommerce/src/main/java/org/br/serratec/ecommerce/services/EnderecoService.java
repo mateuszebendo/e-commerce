@@ -3,6 +3,7 @@ package org.br.serratec.ecommerce.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.br.serratec.ecommerce.dtos.ConsultaCepDTO;
 import org.br.serratec.ecommerce.dtos.EnderecoDTO;
 import org.br.serratec.ecommerce.entities.Endereco;
 import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
@@ -22,8 +23,12 @@ public class EnderecoService {
 	@Autowired
     ModelMapper modelMapper;
 
-
 	public EnderecoDTO save(EnderecoDTO enderecoDTO) {
+		ConsultaCepDTO enderecoDTOConsultado = ConsultaCepService.consultaCep(enderecoDTO.getCep());
+		enderecoDTO.setRua(enderecoDTOConsultado.getRua());
+		enderecoDTO.setBairro(enderecoDTOConsultado.getBairro());
+		enderecoDTO.setCidade(enderecoDTOConsultado.getCidade());
+		enderecoDTO.setUf(enderecoDTOConsultado.getUf());
 		Endereco endereco = enderecoRepository.save(new Endereco(enderecoDTO));
 		EnderecoDTO newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
 		return newEnderecoDTO;
@@ -49,6 +54,11 @@ public class EnderecoService {
 	}
 
 	public EnderecoDTO update(EnderecoDTO enderecoDTO) {
+		ConsultaCepDTO enderecoDTOConsultado = ConsultaCepService.consultaCep(enderecoDTO.getCep());
+		enderecoDTO.setRua(enderecoDTOConsultado.getRua());
+		enderecoDTO.setBairro(enderecoDTOConsultado.getBairro());
+		enderecoDTO.setCidade(enderecoDTOConsultado.getCidade());
+		enderecoDTO.setUf(enderecoDTOConsultado.getUf());
 		Endereco endereco = enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
 		EnderecoDTO newEnderecoDTO;
 		newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);

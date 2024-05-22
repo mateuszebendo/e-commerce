@@ -17,7 +17,6 @@ public class EnderecoDTO {
 	public EnderecoDTO() {
 		}
 
-	
 	public EnderecoDTO(Integer enderecoId, String cep, String rua, String bairro, String cidade, String numero,
 			String complemento, String uf, Cliente cliente) {
 		super();
