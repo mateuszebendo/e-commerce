@@ -25,16 +25,13 @@ public class ClienteService {
 		ClienteDTO clienteDtoSalvo;
 		clienteDtoSalvo = modelMapper.map(clienteSalvo, ClienteDTO.class);
 		return clienteDtoSalvo;
-
 	}
 
-	public Cliente findById(Integer id) {
-		return clienteRepository.findById(id).orElseThrow(
+	public ClienteDTO findById(Integer id) {
+		Cliente cliente =  clienteRepository.findById(id).orElseThrow(
 				()-> new EntidadeNotFoundException("Não foi encontrado um Cliente com Id " + id));
-	}
-
-	public Cliente save(Cliente cliente) {
-		return clienteRepository.save(cliente);
+		ClienteDTO clienteDTO =  modelMapper.map(cliente, ClienteDTO.class);
+		return clienteDTO;
 	}
 
 	public Cliente update(Cliente cliente) {

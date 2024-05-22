@@ -29,7 +29,7 @@ public class EnderecoController {
 	}
 
 	@PutMapping
-    public ResponseEntity<EnderecoDTO> update(@RequestBody EnderecoDTO enderecoDTO){
+	public ResponseEntity<EnderecoDTO> update(@RequestBody EnderecoDTO enderecoDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(enderecoService.update(enderecoDTO));
 	}
 
@@ -44,13 +44,9 @@ public class EnderecoController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> delete(@PathVariable Integer id){
-		if (enderecoService.findById(id) != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(enderecoService.deleteById(id));
-		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{'Error': 'Pedido não encontrado'}");
+	public ResponseEntity<Object> delete(@PathVariable Integer id) {
+		return ResponseEntity.status(HttpStatus.OK).body(enderecoService.deleteById(id));
+
 	}
-	
-	
-	
+
 }
