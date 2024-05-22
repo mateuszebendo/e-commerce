@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 import org.br.serratec.ecommerce.entities.ItemPedido;
+import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.ItemPedidoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class ItemPedidoService {
     }
 
     public ItemPedidoDTO findById (Integer id){
-        ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElse(null);
+        ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElseThrow(
+				()-> new EntidadeNotFoundException("Não foi encontrado um Item-Pedido com Id " + id));
         ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
@@ -66,7 +68,8 @@ public class ItemPedidoService {
     }
 
     public ItemPedidoDTO deleteById (Integer id){
-        ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElse(null);
+        ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElseThrow(
+				()-> new EntidadeNotFoundException("Não foi encontrado um Item-Pedido com Id " + id));
         itemPedidoRepository.deleteById(id);
         ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;

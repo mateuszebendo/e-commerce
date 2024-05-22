@@ -28,9 +28,8 @@ public class PedidoService {
 
 	public PedidoDTO findById(Integer id) {
         Pedido pedido = pedidoRepository.findById(id).orElseThrow(
-				()-> new EntidadeNotFoundException("Não foi encontrado um Cliente com Id " + id));
-        PedidoDTO newPedidoDTO;
-        newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
+				()-> new EntidadeNotFoundException("Não foi encontrado um Pedido com Id " + id));
+        PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
         return newPedidoDTO;
 	}
 
@@ -54,7 +53,7 @@ public class PedidoService {
 
 	public PedidoDTO deleteById (Integer id){
 		Pedido pedido = pedidoRepository.findById(id).orElseThrow(
-				()-> new EntidadeNotFoundException("Não foi encontrado um Cliente com Id " + id));
+				()-> new EntidadeNotFoundException("Não foi encontrado um Pedido com Id " + id));
 		PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
 		pedidoRepository.delete(pedido);
 		return newPedidoDTO;

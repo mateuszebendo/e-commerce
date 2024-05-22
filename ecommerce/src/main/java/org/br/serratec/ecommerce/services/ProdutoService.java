@@ -2,6 +2,7 @@ package org.br.serratec.ecommerce.services;
 
 import org.br.serratec.ecommerce.dtos.ProdutoDTO;
 import org.br.serratec.ecommerce.entities.Produto;
+import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.ProdutoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,8 @@ public class ProdutoService {
         return produtosDto;
     }
     public ProdutoDTO findById(Integer id) {
-        Produto produto = produtoRepository.findById(id).orElse(null);
+        Produto produto = produtoRepository.findById(id).orElseThrow(
+				()-> new EntidadeNotFoundException("Não foi encontrado um Produto com Id " + id));
         ProdutoDTO produtoDtoEncontrado;
         produtoDtoEncontrado = modelMapper.map(produto, ProdutoDTO.class);
         return produtoDtoEncontrado;
@@ -48,7 +50,8 @@ public class ProdutoService {
     }
 
     public ProdutoDTO deleteById(Integer id) {
-        Produto produto = produtoRepository.findById(id).orElse(null);
+        Produto produto = produtoRepository.findById(id).orElseThrow(
+				()-> new EntidadeNotFoundException("Não foi encontrado um Produto com Id " + id));
         ProdutoDTO produtoDtoDeleted;
         produtoDtoDeleted = modelMapper.map(produto, ProdutoDTO.class);
 
