@@ -3,13 +3,14 @@ package org.br.serratec.ecommerce.services;
 import java.util.List;
 
 import org.br.serratec.ecommerce.entities.Cliente;
+import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteService {
-	
+
 	@Autowired
 	ClienteRepository clienteRepository;
 
@@ -18,7 +19,8 @@ public class ClienteService {
 	}
 
 	public Cliente findById(Integer id) {
-		return clienteRepository.findById(id).orElse(null);
+		return clienteRepository.findById(id).orElseThrow(
+				()-> new EntidadeNotFoundException("Não foi encontrado um Cliente com Id " + id));
 	}
 
 	public Cliente save(Cliente cliente) {
@@ -30,15 +32,9 @@ public class ClienteService {
 	}
 
 	public Cliente deleteById(Integer id) {
-		Cliente cliente = clienteRepository.findById(id).orElse(null);
-		try {
-			if(cliente != null)
-				clienteRepository.deleteById(id);
-				return cliente;
-
-		}catch(Exception e) {
-			System.out.println(e);
-		}
+		Cliente cliente = clienteRepository.findById(id).orElseThrow(
+				()-> new EntidadeNotFoundException("Não foi encontrado um Cliente com Id " + id));
+		clienteRepository.deleteById(id);
 		return cliente;
 	}
 

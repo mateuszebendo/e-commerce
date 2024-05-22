@@ -1,5 +1,8 @@
 package org.br.serratec.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "endereco")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "enderecoId", scope = Endereco.class)
 public class Endereco {
 
 	@Id
@@ -18,67 +22,84 @@ public class Endereco {
 	private Integer enderecoId;
 
 	@Column(name = "cep")
-	private Integer cep;
+	private String cep;
 
 	@Column(name = "rua")
-	private Integer rua;
+	private String rua;
 
 	@Column(name = "bairro")
-	private Integer bairro;
+	private String bairro;
 
 	@Column(name = "cidade")
-	private Integer cidade;
+	private String cidade;
 
 	@Column(name = "numero")
 	private Integer numero;
 
 	@Column(name = "complemento")
-	private Integer complemento;
+	private String complemento;
 
 	@Column(name = "uf")
-	private Integer uf;
+	private String uf;
 
-	@OneToOne(mappedBy="endereco")
+	@OneToOne(mappedBy = "endereco")
 	private Cliente cliente;
 
+	public Endereco() {
+		super();
+	}
+
+	public Endereco(Integer enderecoId, String cep, String rua, String bairro, String cidade, Integer numero,
+			String complemento, String uf, Cliente cliente) {
+		super();
+		this.enderecoId = enderecoId;
+		this.cep = cep;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.uf = uf;
+		this.cliente = cliente;
+	}
 
 	public Integer getEnderecoId() {
 		return enderecoId;
 	}
 
-	public void setIdEndereco(Integer enderecoId) {
+	public void setEnderecoId(Integer enderecoId) {
 		this.enderecoId = enderecoId;
 	}
 
-	public Integer getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
-	public Integer getRua() {
+	public String getRua() {
 		return rua;
 	}
 
-	public void setRua(Integer rua) {
+	public void setRua(String rua) {
 		this.rua = rua;
 	}
 
-	public Integer getBairro() {
+	public String getBairro() {
 		return bairro;
 	}
 
-	public void setBairro(Integer bairro) {
+	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
 
-	public Integer getCidade() {
+	public String getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(Integer cidade) {
+	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
 
@@ -90,19 +111,19 @@ public class Endereco {
 		this.numero = numero;
 	}
 
-	public Integer getComplemento() {
+	public String getComplemento() {
 		return complemento;
 	}
 
-	public void setComplemento(Integer complemento) {
+	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
 
-	public Integer getUf() {
+	public String getUf() {
 		return uf;
 	}
 
-	public void setUf(Integer uf) {
+	public void setUf(String uf) {
 		this.uf = uf;
 	}
 
@@ -113,4 +134,5 @@ public class Endereco {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
 }

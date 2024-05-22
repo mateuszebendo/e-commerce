@@ -31,10 +31,6 @@ public class ClienteController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> findById(@PathVariable Integer id) {
 		Cliente cliente = clienteService.findById(id);
-
-		if (cliente == null) {
-			return new ResponseEntity<>("{Erro: Usuário não encontrado}", HttpStatus.NOT_FOUND);
-		}
 		return new ResponseEntity<> (cliente, HttpStatus.OK);
 	}
 
@@ -51,9 +47,6 @@ public class ClienteController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deletePerfilById(@PathVariable Integer id) {
 		Cliente clienteDeletado = clienteService.deleteById(id);
-		if  (clienteDeletado != null) {
-			return new ResponseEntity<> (clienteDeletado, HttpStatus.OK);
-		}
-		return new ResponseEntity<>("{Erro: Cliente não encontrado}", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<> (clienteDeletado, HttpStatus.OK);
 	}
 }
