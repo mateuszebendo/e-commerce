@@ -2,7 +2,7 @@ package org.br.serratec.ecommerce.controllers;
 
 import java.util.List;
 
-import org.br.serratec.ecommerce.entities.Endereco;
+import org.br.serratec.ecommerce.dtos.EnderecoDTO;
 import org.br.serratec.ecommerce.services.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,39 +22,33 @@ public class EnderecoController {
 
 	@Autowired
 	EnderecoService enderecoService;
-	
-	@GetMapping
-	public ResponseEntity<List<Endereco>> findAll() {
-		return new ResponseEntity<>(enderecoService.findAll(), HttpStatus.OK);
-	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Endereco> findById(@PathVariable Integer id) {
-		Endereco endereco = enderecoService.findById(id);
-
-		if (endereco == null)
-			return new ResponseEntity<>(endereco, HttpStatus.NOT_FOUND);
-		else
-			return new ResponseEntity<>(endereco, HttpStatus.OK);
-	}
-	
 	@PostMapping
-	public ResponseEntity<Endereco> save( @RequestBody Endereco endereco) {
-		return new ResponseEntity<>(enderecoService.save(endereco), HttpStatus.CREATED);
+	public ResponseEntity<EnderecoDTO> save(@RequestBody EnderecoDTO enderecoDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(enderecoService.save(enderecoDTO));
 	}
 
 	@PutMapping
-	public ResponseEntity<Endereco> update(@RequestBody Endereco endereco) {
-		return new ResponseEntity<>(enderecoService.update(endereco), HttpStatus.OK);
+    public ResponseEntity<EnderecoDTO> update(@RequestBody EnderecoDTO enderecoDTO){
+		return ResponseEntity.status(HttpStatus.CREATED).body(enderecoService.update(enderecoDTO));
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<EnderecoDTO> findById(@PathVariable Integer id) {
+		return ResponseEntity.status(HttpStatus.OK).body(enderecoService.findById(id));
+	}
+
+	@GetMapping
+	public ResponseEntity<List<EnderecoDTO>> findAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(enderecoService.findAll());
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		Boolean deletado = enderecoService.deleteById(id);
-		if (deletado)
-			return new ResponseEntity<>(HttpStatus.OK);
-		else
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<Object> delete(@PathVariable Integer id){
+		if (enderecoService.findById(id) != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(enderecoService.deleteById(id));
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{'Error': 'Pedido não encontrado'}");
 	}
 	
 	

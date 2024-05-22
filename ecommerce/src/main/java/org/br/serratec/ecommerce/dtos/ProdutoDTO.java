@@ -22,6 +22,8 @@ public class ProdutoDTO {
         this.valorUnitario = valorUnitario;
         this.categoria = categoria;
     }
+    
+    
 
     public Integer getProdutoId() {
         return produtoId;

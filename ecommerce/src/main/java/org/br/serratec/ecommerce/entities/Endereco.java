@@ -1,5 +1,7 @@
 package org.br.serratec.ecommerce.entities;
 
+import org.br.serratec.ecommerce.dtos.EnderecoDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import org.br.serratec.ecommerce.dtos.EnderecoDTO;
 
 @Entity
 @Table(name = "endereco")
@@ -31,7 +32,7 @@ public class Endereco {
 	private String cidade;
 
 	@Column(name = "numero")
-	private Integer numero;
+	private String numero;
 
 	@Column(name = "complemento")
 	private String complemento;
@@ -42,17 +43,20 @@ public class Endereco {
 	@OneToOne(mappedBy="endereco")
 	private Cliente cliente;
 
-	public Endereco (EnderecoDTO enderecoDTO){
-		this.enderecoId = enderecoDTO.getEnderecoId();
-		this.cep = enderecoDTO.getCep();
-		this.rua = enderecoDTO.getRua();
-		this.bairro = enderecoDTO.getBairro();
-		this.cidade = enderecoDTO.getCidade();
-		this.numero = enderecoDTO.getNumero();
-		this.complemento = enderecoDTO.getComplemento();
-		this.uf = enderecoDTO.getUf();
-		this.cliente = enderecoDTO.getCliente();
+	public Endereco() {
 	}
+
+	public Endereco (EnderecoDTO enderecoDTO){
+        this.enderecoId = enderecoDTO.getenderecoId();
+        this.cep = enderecoDTO.getCep();
+        this.rua = enderecoDTO.getRua();
+        this.bairro = enderecoDTO.getBairro();
+        this.cidade = enderecoDTO.getCidade();
+        this.numero = enderecoDTO.getNumero();
+        this.complemento = enderecoDTO.getComplemento();
+        this.uf = enderecoDTO.getUf();
+        this.cliente = enderecoDTO.getCliente();
+    }
 
 	public Integer getEnderecoId() {
 		return enderecoId;
@@ -62,11 +66,11 @@ public class Endereco {
 		this.enderecoId = enderecoId;
 	}
 
-	public Integer getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
@@ -94,11 +98,11 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -125,4 +129,6 @@ public class Endereco {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	
 }
