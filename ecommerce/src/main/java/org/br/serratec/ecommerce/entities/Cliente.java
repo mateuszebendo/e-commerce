@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import org.br.serratec.ecommerce.dtos.ClienteDTO;
 
 @Entity
 @Table(name = "cliente")
@@ -41,6 +42,17 @@ public class Cliente {
 
 	public Cliente() {
 	}
+<<<<<<< HEAD
+  
+	public Cliente(ClienteDTO clienteDto) {
+		this.clienteId = clienteDto.getClienteId();
+		this.email = clienteDto.getEmail();
+		this.nomeCompleto = clienteDto.getNomeCompleto();
+		this.cpf = clienteDto.getCpf();
+		this.telefone = clienteDto.getTelefone();
+		this.dataNascimento = clienteDto.getDataNascimento();
+		this.endereco = clienteDto.getEndereco();
+=======
 
 	public Cliente(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
 			LocalDate dataNascimento, Endereco endereco) {
@@ -51,6 +63,7 @@ public class Cliente {
 		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
+>>>>>>> 1d26aad27f22ae6d01c89201f2071c54fcd5b259
 	}
 
 	public Integer getCliente() {
