@@ -37,7 +37,7 @@ public class ItemPedidoService {
         List<ItemPedido> itemPedidoSaved = itemPedidoRepository.findAll();
         List<ItemPedidoDTO> ListItemPedidoDTO = new ArrayList<>();
         for(ItemPedido itemPedido: itemPedidoSaved) {
-            ItemPedidoDTO itemDTOLista = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+            ItemPedidoDTO itemDTOLista = modelMapper.map(itemPedido, ItemPedidoDTO.class);
             ListItemPedidoDTO.add(itemDTOLista);
         }
         return ListItemPedidoDTO;
