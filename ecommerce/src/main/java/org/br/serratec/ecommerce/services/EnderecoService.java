@@ -1,9 +1,13 @@
 package org.br.serratec.ecommerce.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.br.serratec.ecommerce.dtos.EnderecoDTO;
+import org.br.serratec.ecommerce.dtos.PedidoDTO;
 import org.br.serratec.ecommerce.entities.Endereco;
 import org.br.serratec.ecommerce.repositories.EnderecoRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,40 +18,50 @@ public class EnderecoService {
 	
 	@Autowired
 	EnderecoRepository enderecoRepository;
+	
+	@Autowired
+    ModelMapper modelMapper;
 
 	
-	public List<Endereco> findAll() {
-		return enderecoRepository.findAll();
-	}
-	
-	public Endereco findById(Integer id) {
-		return enderecoRepository.findById(id).orElse(null);
-	}
-	
-	public Endereco save(Endereco endereco) {
-		return enderecoRepository.save(endereco);
+	public EnderecoDTO save(EnderecoDTO enderecoDTO) {
+		Endereco endereco = enderecoRepository.save(new Endereco(enderecoDTO));
+		EnderecoDTO newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
+		return newEnderecoDTO;
 	}
 
-	public Endereco update(Endereco endereco) {
-		return enderecoRepository.save(endereco);
+	public EnderecoDTO findById(Integer id) {
+        Endereco endereco = enderecoRepository.findById(id).orElse(null);
+        EnderecoDTO newEnderecoDTO;
+        newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
+        return newEnderecoDTO;
 	}
 
-	public Boolean deleteById(Integer id) {
-		if(enderecoRepository.existsById(id)) {
-			enderecoRepository.deleteById(id);
-			Endereco enderecoDeletado = enderecoRepository.findById(id).orElse(null);
-			if(enderecoDeletado == null) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
+	public List<EnderecoDTO> findAll(){
+
+		List<Endereco> listaEndereco = enderecoRepository.findAll();
+		List<EnderecoDTO> listaEnderecoDTO = new ArrayList<>();
+		for(Endereco endereco : listaEndereco) {
+			EnderecoDTO enderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
+			listaEnderecoDTO.add(enderecoDTO);
 		}
+		return listaEnderecoDTO;
 	}
-	
-	public long count() {
-		return enderecoRepository.count();
+
+	public EnderecoDTO update(EnderecoDTO enderecoDTO) {
+		Endereco endereco = enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
+		EnderecoDTO newEnderecoDTO;
+		newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
+		return newEnderecoDTO;
 	}
+
+	public EnderecoDTO deleteById (Integer id){
+		Endereco endereco = enderecoRepository.findById(id).orElse(null);
+		EnderecoDTO newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
+		if(endereco != null) {
+			enderecoRepository.delete(endereco);
+			return newEnderecoDTO;
+		}
+		return newEnderecoDTO;
+    }
 	
 }
