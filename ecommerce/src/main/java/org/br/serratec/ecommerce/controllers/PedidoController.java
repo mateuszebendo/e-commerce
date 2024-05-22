@@ -45,9 +45,6 @@ public class PedidoController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> delete(@PathVariable Integer id){
-		if (pedidoService.findById(id) != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(pedidoService.deleteById(id));
-		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{'Error': 'Pedido não encontrado'}");
+		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.deleteById(id));
 	}
 }

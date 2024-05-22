@@ -47,14 +47,14 @@ public class ItemPedido {
     }
 
     public ItemPedido(ItemPedidoDTO itemPedidoDTO) {
-        this.itemPedidoId = itemPedidoDTO.id();
-        this.produto = itemPedidoDTO.produto();
-        this.pedido = itemPedidoDTO.pedido();
-        this.valorLiquido = itemPedidoDTO.valorLiquido();
-        this.valorBruto = itemPedidoDTO.valorBruto();
-        this.percentualDesconto = itemPedidoDTO.percentualDesconto();
-        this.precoVenda = itemPedidoDTO.precoVenda();
-        this.quantidade = itemPedidoDTO.quantidade();
+        this.itemPedidoId = itemPedidoDTO.getItemPedidoId();
+        this.produto = itemPedidoDTO.getProduto();
+        this.pedido = itemPedidoDTO.getPedido();
+        this.valorLiquido = itemPedidoDTO.getValorLiquido();
+        this.valorBruto = itemPedidoDTO.getValorBruto();
+        this.percentualDesconto = itemPedidoDTO.getPercentualDesconto();
+        this.precoVenda = itemPedidoDTO.getPrecoVenda();
+        this.quantidade = itemPedidoDTO.getQuantidade();
     }
 
 
