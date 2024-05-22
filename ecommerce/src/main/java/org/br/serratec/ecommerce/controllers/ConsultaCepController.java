@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
-@RequestMapping("/cep") 
+@RequestMapping("/cep")
 public class ConsultaCepController {
 
 	@Autowired
@@ -20,11 +19,9 @@ public class ConsultaCepController {
 
 	@GetMapping("{id}")
 	public ResponseEntity<ConsultaCepDTO> consultaCep(@PathVariable String id) {
-		
-		return new 
-				ResponseEntity<>(consultaCepService.consultaCep(id), HttpStatus.OK);
-		
+
+		return new ResponseEntity<>(consultaCepService.consultaCep(id), HttpStatus.OK);
+
 	}
-	
-	
+
 }
