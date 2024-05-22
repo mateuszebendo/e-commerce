@@ -3,8 +3,6 @@ package org.br.serratec.ecommerce.entities;
 import jakarta.persistence.*;
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 
-import java.util.List;
-
 @Entity
 @Table(name="Item_pedido")
 public class ItemPedido {
@@ -30,7 +28,7 @@ public class ItemPedido {
 
     @ManyToOne
     @JoinColumn(name="pedido_id")
-    private Pedido pedidos;
+    private Pedido pedido;
 
     @ManyToOne
     @JoinColumn(name="produto_id")
@@ -42,7 +40,7 @@ public class ItemPedido {
     public ItemPedido(ItemPedidoDTO itemPedidoDTO) {
         this.itemPedidoId = itemPedidoDTO.getItemPedidoId();
         this.produto = itemPedidoDTO.getProduto();
-        this.pedidos = itemPedidoDTO.getPedido();
+        this.pedido = itemPedidoDTO.getPedido();
         this.valorLiquido = itemPedidoDTO.getValorLiquido();
         this.valorBruto = itemPedidoDTO.getValorBruto();
         this.percentualDesconto = itemPedidoDTO.getPercentualDesconto();
@@ -100,11 +98,11 @@ public class ItemPedido {
     }
 
     public Pedido getPedidos() {
-        return pedidos;
+        return pedido;
     }
 
     public void setPedidos(Pedido pedidos) {
-        this.pedidos = pedidos;
+        this.pedido = pedido;
     }
 
     public Produto getProdutos() {
