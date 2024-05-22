@@ -21,15 +21,13 @@ public class ItemPedidoService {
 
     public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO){
         ItemPedido itemPedidoSaved = itemPedidoRepository.save(new ItemPedido(itemPedidoDTO));
-        ItemPedidoDTO newItemPedidoDTO;
-        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
 
     public ItemPedidoDTO findById (Integer id){
         ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElse(null);
-        ItemPedidoDTO newItemPedidoDTO;
-        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
 
@@ -44,17 +42,15 @@ public class ItemPedidoService {
     }
 
     public ItemPedidoDTO update (ItemPedidoDTO itemPedidoDTO){
-        ItemPedido itemPedidoSaved = itemPedidoRepository.save(new ItemPedido(itemPedidoDTO));
-        ItemPedidoDTO newItemPedidoDTO;
-        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        ItemPedido itemPedidoSaved = itemPedidoRepository.save(modelMapper.map(itemPedidoDTO, ItemPedido.class));
+        ItemPedidoDTO newItemPedidoDTO= modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
 
     public ItemPedidoDTO deleteById (Integer id){
         ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElse(null);
         itemPedidoRepository.deleteById(id);
-        ItemPedidoDTO newItemPedidoDTO;
-        newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
+        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }
 }
