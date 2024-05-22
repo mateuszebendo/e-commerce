@@ -1,12 +1,14 @@
 package org.br.serratec.ecommerce.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,14 +34,14 @@ public class Cliente {
 
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
-
+  
+  
 	@Column(name = "endereco")
 	private Endereco endereco;
 
 	public Cliente() {
-		super();
 	}
-
+  
 	public Cliente(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
 			LocalDate dataNascimento, Endereco endereco) {
 		this.clienteId = clienteId;
@@ -59,44 +61,44 @@ public class Cliente {
 		this.clienteId = clienteId;
 	}
 
-	public String getEmail() {
+	protected String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	protected void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getNomeCompleto() {
+	protected String getNomeCompleto() {
 		return nomeCompleto;
 	}
 
-	public void setNomeCompleto(String nomeCompleto) {
+	protected void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}
 
-	public String getCpf() {
+	protected String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	protected void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	public String getTelefone() {
+	protected String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	protected void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
-	public LocalDate getData_nascimento() {
+	protected LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setData_nascimento(LocalDate data_nascimento) {
-		this.dataNascimento = data_nascimento;
+	protected void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public Endereco getEndereco() {

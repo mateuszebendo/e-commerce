@@ -1,9 +1,9 @@
 package org.br.serratec.ecommerce.dtos;
 
-import org.br.serratec.ecommerce.entities.ItemPedido;
 import org.br.serratec.ecommerce.entities.Pedido;
 import org.br.serratec.ecommerce.entities.Produto;
 
+<<<<<<< HEAD
 import java.util.List;
 
 public class ItemPedidoDTO{
@@ -93,4 +93,16 @@ public class ItemPedidoDTO{
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+=======
+public record ItemPedidoDTO(
+        Integer id,
+        Double quantidade,
+        Double precoVenda,
+        Double percentualDesconto,
+        Double valorBruto,
+        Double valorLiquido,
+        Pedido pedido,
+        Produto produto
+) {
+>>>>>>> 5d697b4aec31e50303cdd11436c70a357c5cdb83
 }

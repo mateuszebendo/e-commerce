@@ -21,8 +21,7 @@ public class PedidoService {
 
 	public PedidoDTO save(PedidoDTO pedidoDTO) {
 		Pedido pedido = pedidoRepository.save(new Pedido(pedidoDTO));
-		PedidoDTO newPedidoDTO;
-		newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
+		PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
 		return newPedidoDTO;
 	}
 
@@ -38,21 +37,26 @@ public class PedidoService {
 		List<Pedido> listaPedido = pedidoRepository.findAll();
 		List<PedidoDTO> listaPedidoDTO = new ArrayList<>();
 		for(Pedido pedido : listaPedido) {
-			PedidoDTO pedidoDTO = modelMapper.map(listaPedidoDTO, PedidoDTO.class);
+			PedidoDTO pedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
 			listaPedidoDTO.add(pedidoDTO);
 		}
 		return listaPedidoDTO;
 	}
 
-	public Pedido update(PedidoDTO pedidoDTO) {
-		return pedidoRepository.save(new Pedido(pedidoDTO));
+	public PedidoDTO update(PedidoDTO pedidoDTO) {
+		Pedido pedido = pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
+		PedidoDTO newPedidoDTO;
+		newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
+		return newPedidoDTO;
 	}
 
 	public PedidoDTO deleteById (Integer id){
-        Pedido pedido = pedidoRepository.findById(id).orElse(null);
-        PedidoDTO newPedidoDTO;
-        newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
-        return newPedidoDTO;
+		Pedido pedido = pedidoRepository.findById(id).orElse(null);
+		PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
+		if(pedido != null) {
+			pedidoRepository.delete(pedido);
+			return newPedidoDTO;
+		}
+		return newPedidoDTO;
     }
-
 }
