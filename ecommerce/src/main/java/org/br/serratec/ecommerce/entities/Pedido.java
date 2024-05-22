@@ -2,8 +2,11 @@ package org.br.serratec.ecommerce.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -42,20 +46,37 @@ public class Pedido {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+	@JsonIgnore
+	@OneToMany
+	private List<ItemPedido> itensPedido;
+
 	public Pedido() {
 	}
 
 	public Pedido(PedidoDTO pedidoDTO) {
-		this.dataPedido = pedidoDTO.dataPedido();
-		this.dataEntrega = pedidoDTO.dataEntrega();
-		this.dataEnvio = pedidoDTO.dataEnvio();
-		this.status = pedidoDTO.status();
-		this.valorTotal = pedidoDTO.valorTotal();
-		this.cliente = pedidoDTO.cliente();
+		this.dataPedido = LocalDateTime.now();
+		this.dataEntrega = pedidoDTO.getDataEntrega();
+		this.dataEnvio = pedidoDTO.getDataEnvio();
+		this.status = pedidoDTO.getStatus();
+		this.valorTotal = pedidoDTO.getValorTotal();
+		this.cliente = pedidoDTO.getCliente();
 	}
 
 	public Integer getPedidoId() {
 		return pedidoId;
+	}
+
+	public Pedido(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, String status,
+			Double valorTotal, Cliente cliente, List<ItemPedido> itensPedido) {
+		super();
+		this.pedidoId = pedidoId;
+		this.dataPedido = dataPedido;
+		this.dataEntrega = dataEntrega;
+		this.dataEnvio = dataEnvio;
+		this.status = status;
+		this.valorTotal = valorTotal;
+		this.cliente = cliente;
+		this.itensPedido = itensPedido;
 	}
 
 	public void setPedidoId(Integer pedidoId) {

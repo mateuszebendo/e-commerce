@@ -1,10 +1,20 @@
 package org.br.serratec.ecommerce.entities;
 
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.br.serratec.ecommerce.dtos.ProdutoDTO;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "produto")
@@ -29,6 +39,9 @@ public class Produto {
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "produto")
+    private List<ItemPedido> itemPedido;
 
     public Produto() {
     }
