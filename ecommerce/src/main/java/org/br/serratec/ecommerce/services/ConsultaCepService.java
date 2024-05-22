@@ -10,19 +10,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ConsultaCepService {
 
-	public ConsultaCepDTO consultaCep(String id) {
+	public static ConsultaCepDTO consultaCep(String cep) {
 		RestTemplate restTemplate = new RestTemplate();
-		String uri = "https://fakestoreapi.com/users/{id}";
-		
-		Map<String,String> params = new HashMap<String,String>();
-		
-		params.put("id", id);
-		
-		ConsultaCepDTO dto = restTemplate.getForObject(uri, ConsultaCepDTO.class, params);
-		
-		return dto;
+		String url = "https://h-apigateway.conectagov.estaleiro.serpro.gov.br/api-cep/v1/consulta/cep/{cep}";
+		Map<String,String> dadosCep = new HashMap<String,String>();
+		dadosCep.put("cep", cep);
+		ConsultaCepDTO cepConsultadoDTO = restTemplate.getForObject(url, ConsultaCepDTO.class, dadosCep);
+		return cepConsultadoDTO;
 	}
-	
 	
 	
 }
