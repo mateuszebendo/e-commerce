@@ -55,7 +55,7 @@ public class ItemPedido {
         return itemPedidoId;
     }
 
-    public void setItemPedidoID(Integer itemPedidoID) {
+    public void setItemPedidoID(Integer itemPedidoId) {
         this.itemPedidoId = itemPedidoId;
     }
 

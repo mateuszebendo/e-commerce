@@ -37,7 +37,7 @@ public class Pedido {
 	private LocalDate dataEnvio;
 
 	@Column(name = "status")
-	private String status;
+	private Boolean status;
 
 	@Column(name = "valor_total")
 	private Double valorTotal;
@@ -66,7 +66,7 @@ public class Pedido {
 		return pedidoId;
 	}
 
-	public Pedido(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, String status,
+	public Pedido(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, Boolean status,
 			Double valorTotal, Cliente cliente, List<ItemPedido> itensPedido) {
 		super();
 		this.pedidoId = pedidoId;
@@ -107,11 +107,11 @@ public class Pedido {
 		this.dataEnvio = dataEnvio;
 	}
 
-	public String getStatus() {
+	public Boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

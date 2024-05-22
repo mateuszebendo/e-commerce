@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -13,39 +12,36 @@ import jakarta.persistence.Table;
 @Table(name = "endereco")
 public class Endereco {
 
-	// endereco_id, cep, rua, bairro, cidade, numero, complemento, uf
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "endereco_id")
 	private Integer enderecoId;
-	
+
 	@Column(name = "cep")
 	private Integer cep;
-	
+
 	@Column(name = "rua")
 	private Integer rua;
-	
+
 	@Column(name = "bairro")
 	private Integer bairro;
-	
+
 	@Column(name = "cidade")
 	private Integer cidade;
-	
+
 	@Column(name = "numero")
 	private Integer numero;
-	
+
 	@Column(name = "complemento")
 	private Integer complemento;
-	
+
 	@Column(name = "uf")
 	private Integer uf;
-	
-	@OneToOne
-	@JoinColumn(name = "cliente_id")
+
+	@OneToOne(mappedBy="endereco")
 	private Cliente cliente;
-	
-	
+
+
 	public Integer getEnderecoId() {
 		return enderecoId;
 	}
@@ -117,8 +113,4 @@ public class Endereco {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
-	
-	
-	
 }
