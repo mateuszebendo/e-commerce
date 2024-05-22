@@ -1,5 +1,6 @@
 package org.br.serratec.ecommerce.entities;
 
+import jakarta.annotation.Nullable;
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 
 import jakarta.persistence.Column;

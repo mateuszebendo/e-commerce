@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import org.br.serratec.ecommerce.dtos.EnderecoDTO;
 
 @Entity
 @Table(name = "endereco")
@@ -18,35 +19,46 @@ public class Endereco {
 	private Integer enderecoId;
 
 	@Column(name = "cep")
-	private Integer cep;
+	private String cep;
 
 	@Column(name = "rua")
-	private Integer rua;
+	private String rua;
 
 	@Column(name = "bairro")
-	private Integer bairro;
+	private String bairro;
 
 	@Column(name = "cidade")
-	private Integer cidade;
+	private String cidade;
 
 	@Column(name = "numero")
 	private Integer numero;
 
 	@Column(name = "complemento")
-	private Integer complemento;
+	private String complemento;
 
 	@Column(name = "uf")
-	private Integer uf;
+	private String uf;
 
 	@OneToOne(mappedBy="endereco")
 	private Cliente cliente;
 
+	public Endereco (EnderecoDTO enderecoDTO){
+		this.enderecoId = enderecoDTO.getEnderecoId();
+		this.cep = enderecoDTO.getCep();
+		this.rua = enderecoDTO.getRua();
+		this.bairro = enderecoDTO.getBairro();
+		this.cidade = enderecoDTO.getCidade();
+		this.numero = enderecoDTO.getNumero();
+		this.complemento = enderecoDTO.getComplemento();
+		this.uf = enderecoDTO.getUf();
+		this.cliente = enderecoDTO.getCliente();
+	}
 
 	public Integer getEnderecoId() {
 		return enderecoId;
 	}
 
-	public void setIdEndereco(Integer enderecoId) {
+	public void setEnderecoId(Integer enderecoId) {
 		this.enderecoId = enderecoId;
 	}
 
@@ -58,27 +70,27 @@ public class Endereco {
 		this.cep = cep;
 	}
 
-	public Integer getRua() {
+	public String getRua() {
 		return rua;
 	}
 
-	public void setRua(Integer rua) {
+	public void setRua(String rua) {
 		this.rua = rua;
 	}
 
-	public Integer getBairro() {
+	public String getBairro() {
 		return bairro;
 	}
 
-	public void setBairro(Integer bairro) {
+	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
 
-	public Integer getCidade() {
+	public String getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(Integer cidade) {
+	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
 
@@ -90,19 +102,19 @@ public class Endereco {
 		this.numero = numero;
 	}
 
-	public Integer getComplemento() {
+	public String getComplemento() {
 		return complemento;
 	}
 
-	public void setComplemento(Integer complemento) {
+	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
 
-	public Integer getUf() {
+	public String getUf() {
 		return uf;
 	}
 
-	public void setUf(Integer uf) {
+	public void setUf(String uf) {
 		this.uf = uf;
 	}
 
