@@ -32,7 +32,7 @@ public class EnderecoService {
 		return enderecoRepository.save(endereco);
 	}
 
-	public Boolean delete(Integer id) {
+	public Boolean deleteById(Integer id) {
 		if(enderecoRepository.existsById(id)) {
 			enderecoRepository.deleteById(id);
 			Endereco enderecoDeletado = enderecoRepository.findById(id).orElse(null);

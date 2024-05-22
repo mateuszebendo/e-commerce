@@ -47,11 +47,11 @@ public class Produto {
     }
 
     public Produto(ProdutoDTO produtoDto) {
-        this.nomeDesgricao = produtoDto.nomeDescricao();
-        this.qtdEstoque = produtoDto.qtdEstoque();
-        this.dataCadastro = produtoDto.dataCadastro();
-        this.valorUnitario = produtoDto.valorUnitario();
-        this.categoria = produtoDto.categoria();
+        this.nomeDesgricao = produtoDto.getNomeDescricao();
+        this.qtdEstoque = produtoDto.getQtdEstoque();
+        this.dataCadastro = produtoDto.getDataCadastro();
+        this.valorUnitario = produtoDto.getValorUnitario();
+        this.categoria = produtoDto.getCategoria();
     }
 
     public Integer getProdutoId() {

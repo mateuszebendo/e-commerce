@@ -34,14 +34,14 @@ public class Cliente {
 	private LocalDate dataNascimento;
 
 	@Column(name = "endereco")
-	private String endereco;
+	private Endereco endereco;
 
 	public Cliente() {
 		super();
 	}
 
 	public Cliente(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
-			LocalDate dataNascimento, String endereco) {
+			LocalDate dataNascimento, Endereco endereco) {
 		this.clienteId = clienteId;
 		this.email = email;
 		this.nomeCompleto = nomeCompleto;
@@ -99,11 +99,11 @@ public class Cliente {
 		this.dataNascimento = data_nascimento;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 

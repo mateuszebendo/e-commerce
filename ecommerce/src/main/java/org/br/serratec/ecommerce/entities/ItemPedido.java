@@ -6,12 +6,12 @@ import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 import java.util.List;
 
 @Entity
-@Table(name="ItemPedido")
+@Table(name="Item_pedido")
 public class ItemPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="item_pedido_id")
-    private Integer itemPedidoID;
+    private Integer itemPedidoId;
 
     @Column(name="quatidade")
     private Double quantidade;
@@ -35,9 +35,11 @@ public class ItemPedido {
     @JoinColumn(name="produto_id")
     private Produto produto;
 
+    public ItemPedido() {
+    }
 
     public ItemPedido(ItemPedidoDTO itemPedidoDTO) {
-        this.itemPedidoID = itemPedidoDTO.id();
+        this.itemPedidoId = itemPedidoDTO.id();
         this.produto = itemPedidoDTO.produto();
         this.pedidos = itemPedidoDTO.pedidos();
         this.valorLiquido = itemPedidoDTO.valorLiquido();
@@ -49,11 +51,11 @@ public class ItemPedido {
 
 
     public Integer getItemPedidoID() {
-        return itemPedidoID;
+        return itemPedidoId;
     }
 
     public void setItemPedidoID(Integer itemPedidoID) {
-        this.itemPedidoID = itemPedidoID;
+        this.itemPedidoId = itemPedidoId;
     }
 
     public double getQuantidade() {
