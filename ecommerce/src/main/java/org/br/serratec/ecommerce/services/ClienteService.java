@@ -4,11 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.br.serratec.ecommerce.dtos.ClienteDTO;
-import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
-import org.br.serratec.ecommerce.dtos.ProdutoDTO;
 import org.br.serratec.ecommerce.entities.Cliente;
-import org.br.serratec.ecommerce.entities.ItemPedido;
-import org.br.serratec.ecommerce.entities.Produto;
 import org.br.serratec.ecommerce.repositories.ClienteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
