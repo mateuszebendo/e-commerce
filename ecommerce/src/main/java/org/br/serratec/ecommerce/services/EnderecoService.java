@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.br.serratec.ecommerce.dtos.ConsultaCepDTO;
 import org.br.serratec.ecommerce.dtos.EnderecoDTO;
-import org.br.serratec.ecommerce.dtos.PedidoDTO;
 import org.br.serratec.ecommerce.entities.Endereco;
+import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.EnderecoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EnderecoService {
 
-	
+
 	@Autowired
 	EnderecoRepository enderecoRepository;
-	
+
 	@Autowired
     ModelMapper modelMapper;
 
@@ -35,7 +35,8 @@ public class EnderecoService {
 	}
 
 	public EnderecoDTO findById(Integer id) {
-        Endereco endereco = enderecoRepository.findById(id).orElse(null);
+        Endereco endereco = enderecoRepository.findById(id).orElseThrow(
+				()-> new EntidadeNotFoundException("Não foi encontrado um Endereço com Id " + id));
         EnderecoDTO newEnderecoDTO;
         newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
         return newEnderecoDTO;
@@ -53,6 +54,11 @@ public class EnderecoService {
 	}
 
 	public EnderecoDTO update(EnderecoDTO enderecoDTO) {
+		ConsultaCepDTO enderecoDTOConsultado = ConsultaCepService.consultaCep(enderecoDTO.getCep());
+		enderecoDTO.setRua(enderecoDTOConsultado.getRua());
+		enderecoDTO.setBairro(enderecoDTOConsultado.getBairro());
+		enderecoDTO.setCidade(enderecoDTOConsultado.getCidade());
+		enderecoDTO.setUf(enderecoDTOConsultado.getUf());
 		Endereco endereco = enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
 		EnderecoDTO newEnderecoDTO;
 		newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
@@ -60,7 +66,8 @@ public class EnderecoService {
 	}
 
 	public EnderecoDTO deleteById (Integer id){
-		Endereco endereco = enderecoRepository.findById(id).orElse(null);
+		Endereco endereco = enderecoRepository.findById(id).orElseThrow(
+				()-> new EntidadeNotFoundException("Não foi encontrado um Endereço com Id " + id));
 		EnderecoDTO newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
 		if(endereco != null) {
 			enderecoRepository.delete(endereco);
@@ -68,5 +75,5 @@ public class EnderecoService {
 		}
 		return newEnderecoDTO;
     }
-	
+
 }

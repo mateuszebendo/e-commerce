@@ -4,12 +4,9 @@ public class ConsultaCepDTO {
 
 	// cep, rua, bairro, cidade, numero, complemento, uf
 	private String id;
-	private String cep;
 	private String rua;
 	private String bairro;
 	private String cidade;
-	private String numero;
-	private String complemento;
 	private String uf;
 	
 	
@@ -18,12 +15,6 @@ public class ConsultaCepDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getCep() {
-		return cep;
-	}
-	public void setCep(String cep) {
-		this.cep = cep;
 	}
 	public String getRua() {
 		return rua;
@@ -42,18 +33,6 @@ public class ConsultaCepDTO {
 	}
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
-	}
-	public String getNumero() {
-		return numero;
-	}
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-	public String getComplemento() {
-		return complemento;
-	}
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
 	}
 	public String getUf() {
 		return uf;

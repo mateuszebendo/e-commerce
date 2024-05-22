@@ -38,8 +38,6 @@ public class CategoriaController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete (@PathVariable Integer id){
-		var resultado = categoriaService.deleteById(id);
-		if(resultado != null) return ResponseEntity.status(HttpStatus.OK).body(resultado);
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{'Status': 'Não foi possível deletar'}");
+		return ResponseEntity.status(HttpStatus.OK).body(categoriaService.deleteById(id));
 	}
 }

@@ -3,7 +3,6 @@ package org.br.serratec.ecommerce.controllers;
 import java.util.List;
 
 import org.br.serratec.ecommerce.dtos.ClienteDTO;
-import org.br.serratec.ecommerce.entities.Cliente;
 import org.br.serratec.ecommerce.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,24 +29,22 @@ public class ClienteController {
 	}
 
 	@GetMapping
-	public ResponseEntity <List<ClienteDTO>> findAll() {
-		return new ResponseEntity<>(clienteService.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<ClienteDTO>> findAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(clienteService.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> findById(@PathVariable Integer id) {
-		Cliente cliente = clienteService.findById(id);
-		return new ResponseEntity<> (cliente, HttpStatus.OK);
+	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
+		return ResponseEntity.status(HttpStatus.OK).body(clienteService.findById(id));
 	}
 
 	@PutMapping
-	public ResponseEntity<Cliente> update(@RequestBody Cliente cliente) {
-		return new ResponseEntity<> (clienteService.update(cliente), HttpStatus.CREATED);
+	public ResponseEntity<ClienteDTO> update(@RequestBody ClienteDTO clienteDto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.update(clienteDto));
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deletePerfilById(@PathVariable Integer id) {
-		Cliente clienteDeletado = clienteService.deleteById(id);
-		return new ResponseEntity<> (clienteDeletado, HttpStatus.OK);
+	public ResponseEntity<Object> deleteById(@PathVariable Integer id) {
+		return ResponseEntity.status(HttpStatus.OK).body(clienteService.deleteById(id));
 	}
 }
