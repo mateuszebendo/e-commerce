@@ -1,15 +1,9 @@
 package org.br.serratec.ecommerce.entities;
 
+import jakarta.persistence.*;
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name="Item_pedido")
@@ -34,8 +28,9 @@ public class ItemPedido {
     @Column(name="valor_liquido")
     private Double valorLiquido;
 
-    @ManyToMany(mappedBy = "itensPedido")
-    private List<Pedido> pedidos;
+    @ManyToOne
+    @JoinColumn(name="pedido_id")
+    private Pedido pedidos;
 
     @ManyToOne
     @JoinColumn(name="produto_id")
@@ -45,14 +40,14 @@ public class ItemPedido {
     }
 
     public ItemPedido(ItemPedidoDTO itemPedidoDTO) {
-        this.itemPedidoId = itemPedidoDTO.id();
-        this.produto = itemPedidoDTO.produto();
-        this.pedidos = itemPedidoDTO.pedidos();
-        this.valorLiquido = itemPedidoDTO.valorLiquido();
-        this.valorBruto = itemPedidoDTO.valorBruto();
-        this.percentualDesconto = itemPedidoDTO.percentualDesconto();
-        this.precoVenda = itemPedidoDTO.precoVenda();
-        this.quantidade = itemPedidoDTO.quantidade();
+        this.itemPedidoId = itemPedidoDTO.getItemPedidoId();
+        this.produto = itemPedidoDTO.getProduto();
+        this.pedidos = itemPedidoDTO.getPedido();
+        this.valorLiquido = itemPedidoDTO.getValorLiquido();
+        this.valorBruto = itemPedidoDTO.getValorBruto();
+        this.percentualDesconto = itemPedidoDTO.getPercentualDesconto();
+        this.precoVenda = itemPedidoDTO.getPrecoVenda();
+        this.quantidade = itemPedidoDTO.getQuantidade();
     }
 
 
@@ -104,11 +99,11 @@ public class ItemPedido {
         this.valorLiquido = valorLiquido;
     }
 
-    public List<Pedido> getPedidos() {
+    public Pedido getPedidos() {
         return pedidos;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
+    public void setPedidos(Pedido pedidos) {
         this.pedidos = pedidos;
     }
 
