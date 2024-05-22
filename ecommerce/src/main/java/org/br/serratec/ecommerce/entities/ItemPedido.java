@@ -1,9 +1,16 @@
 package org.br.serratec.ecommerce.entities;
 
-import jakarta.persistence.*;
+import jakarta.annotation.Nullable;
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Item_pedido")
@@ -30,7 +37,7 @@ public class ItemPedido {
 
     @ManyToOne
     @JoinColumn(name="pedido_id")
-    private Pedido pedidos;
+    private Pedido pedido;
 
     @ManyToOne
     @JoinColumn(name="produto_id")
@@ -40,14 +47,14 @@ public class ItemPedido {
     }
 
     public ItemPedido(ItemPedidoDTO itemPedidoDTO) {
-        this.itemPedidoId = itemPedidoDTO.getItemPedidoId();
-        this.produto = itemPedidoDTO.getProduto();
-        this.pedidos = itemPedidoDTO.getPedido();
-        this.valorLiquido = itemPedidoDTO.getValorLiquido();
-        this.valorBruto = itemPedidoDTO.getValorBruto();
-        this.percentualDesconto = itemPedidoDTO.getPercentualDesconto();
-        this.precoVenda = itemPedidoDTO.getPrecoVenda();
-        this.quantidade = itemPedidoDTO.getQuantidade();
+        this.itemPedidoId = itemPedidoDTO.id();
+        this.produto = itemPedidoDTO.produto();
+        this.pedido = itemPedidoDTO.pedido();
+        this.valorLiquido = itemPedidoDTO.valorLiquido();
+        this.valorBruto = itemPedidoDTO.valorBruto();
+        this.percentualDesconto = itemPedidoDTO.percentualDesconto();
+        this.precoVenda = itemPedidoDTO.precoVenda();
+        this.quantidade = itemPedidoDTO.quantidade();
     }
 
 
@@ -100,11 +107,11 @@ public class ItemPedido {
     }
 
     public Pedido getPedidos() {
-        return pedidos;
+        return pedido;
     }
 
-    public void setPedidos(Pedido pedidos) {
-        this.pedidos = pedidos;
+    public void setPedidos(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public Produto getProdutos() {
