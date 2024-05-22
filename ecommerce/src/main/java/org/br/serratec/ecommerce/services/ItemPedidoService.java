@@ -20,6 +20,15 @@ public class ItemPedidoService {
     ModelMapper modelMapper;
 
     public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO){
+        var newItemPedido = new ItemPedido(itemPedidoDTO);
+
+        newItemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+        double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
+        newItemPedido.setValorBruto(valorBruto);
+
+        double valorLiquido = newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto();
+        newItemPedido.setValorLiquido(valorLiquido);
+
         ItemPedido itemPedidoSaved = itemPedidoRepository.save(new ItemPedido(itemPedidoDTO));
         ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
@@ -42,7 +51,16 @@ public class ItemPedidoService {
     }
 
     public ItemPedidoDTO update (ItemPedidoDTO itemPedidoDTO){
-        ItemPedido itemPedidoSaved = itemPedidoRepository.save(modelMapper.map(itemPedidoDTO, ItemPedido.class));
+        var newItemPedido = modelMapper.map(itemPedidoDTO, ItemPedido.class);
+
+        newItemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+        double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
+        newItemPedido.setValorBruto(valorBruto);
+
+        double valorLiquido = newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto();
+        newItemPedido.setValorLiquido(valorLiquido);
+
+        ItemPedido itemPedidoSaved = itemPedidoRepository.save(newItemPedido);
         ItemPedidoDTO newItemPedidoDTO= modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
         return newItemPedidoDTO;
     }

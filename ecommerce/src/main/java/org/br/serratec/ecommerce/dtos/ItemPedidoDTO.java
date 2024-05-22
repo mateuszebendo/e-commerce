@@ -3,8 +3,6 @@ package org.br.serratec.ecommerce.dtos;
 import org.br.serratec.ecommerce.entities.Pedido;
 import org.br.serratec.ecommerce.entities.Produto;
 
-import java.util.List;
-
 public class ItemPedidoDTO {
     private Integer itemPedidoId;
     private Double quantidade;
@@ -91,6 +89,6 @@ public class ItemPedidoDTO {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
-
     }
+
 }

@@ -29,10 +29,11 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<ClienteDTO> save(@RequestBody ClienteDTO clienteDto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteDto));
 	}
 
 	@GetMapping
+
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(clienteService.findAll());
 	}
@@ -40,6 +41,7 @@ public class ClienteController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
 		return ResponseEntity.status(HttpStatus.OK).body(clienteService.findById(id));
+
 	}
 
 	@PutMapping

@@ -1,17 +1,23 @@
 package org.br.serratec.ecommerce.controllers;
 
-import org.br.serratec.ecommerce.dtos.PedidoDTO;
+
+import java.util.List;
+
 import org.br.serratec.ecommerce.dtos.ProdutoDTO;
-import org.br.serratec.ecommerce.entities.Produto;
 import org.br.serratec.ecommerce.repositories.ProdutoRepository;
-import org.br.serratec.ecommerce.services.PedidoService;
 import org.br.serratec.ecommerce.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/produtos")
