@@ -34,8 +34,9 @@ public class ItemPedido {
     @Column(name="valor_liquido")
     private Double valorLiquido;
 
-    @ManyToMany(mappedBy = "itensPedido")
-    private List<Pedido> pedidos;
+    @ManyToOne
+    @JoinColumn(name="pedido_id")
+    private Pedido pedido;
 
     @ManyToOne
     @JoinColumn(name="produto_id")
@@ -47,7 +48,7 @@ public class ItemPedido {
     public ItemPedido(ItemPedidoDTO itemPedidoDTO) {
         this.itemPedidoId = itemPedidoDTO.id();
         this.produto = itemPedidoDTO.produto();
-        this.pedidos = itemPedidoDTO.pedidos();
+        this.pedido = itemPedidoDTO.pedido();
         this.valorLiquido = itemPedidoDTO.valorLiquido();
         this.valorBruto = itemPedidoDTO.valorBruto();
         this.percentualDesconto = itemPedidoDTO.percentualDesconto();
@@ -60,7 +61,7 @@ public class ItemPedido {
         return itemPedidoId;
     }
 
-    public void setItemPedidoID(Integer itemPedidoID) {
+    public void setItemPedidoID(Integer itemPedidoId) {
         this.itemPedidoId = itemPedidoId;
     }
 
@@ -104,12 +105,12 @@ public class ItemPedido {
         this.valorLiquido = valorLiquido;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
+    public Pedido getPedidos() {
+        return pedido;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    public void setPedidos(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public Produto getProdutos() {
