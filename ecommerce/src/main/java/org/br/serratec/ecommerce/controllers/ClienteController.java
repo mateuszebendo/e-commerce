@@ -26,21 +26,17 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<ClienteDTO> save(@RequestBody ClienteDTO clienteDto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteDto));
 	}
 
 	@GetMapping
-	public ResponseEntity <List<Cliente>> findAll() {
+	public ResponseEntity <List<ClienteDTO>> findAll() {
 		return new ResponseEntity<>(clienteService.findAll(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> findById(@PathVariable Integer id) {
 		Cliente cliente = clienteService.findById(id);
-
-		if (cliente == null) {
-			return new ResponseEntity<>("{Erro: Usuário não encontrado}", HttpStatus.NOT_FOUND);
-		}
 		return new ResponseEntity<> (cliente, HttpStatus.OK);
 	}
 
@@ -52,9 +48,6 @@ public class ClienteController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deletePerfilById(@PathVariable Integer id) {
 		Cliente clienteDeletado = clienteService.deleteById(id);
-		if  (clienteDeletado != null) {
-			return new ResponseEntity<> (clienteDeletado, HttpStatus.OK);
-		}
-		return new ResponseEntity<>("{Erro: Cliente não encontrado}", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<> (clienteDeletado, HttpStatus.OK);
 	}
 }

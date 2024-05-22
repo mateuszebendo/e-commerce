@@ -1,6 +1,9 @@
 package org.br.serratec.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.br.serratec.ecommerce.dtos.EnderecoDTO;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "endereco")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "enderecoId", scope = Endereco.class)
 public class Endereco {
 
 	@Id
@@ -40,7 +44,7 @@ public class Endereco {
 	@Column(name = "uf")
 	private String uf;
 
-	@OneToOne(mappedBy="endereco")
+	@OneToOne(mappedBy = "endereco")
 	private Cliente cliente;
 
 	public Endereco() {
@@ -129,6 +133,4 @@ public class Endereco {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-	
 }
