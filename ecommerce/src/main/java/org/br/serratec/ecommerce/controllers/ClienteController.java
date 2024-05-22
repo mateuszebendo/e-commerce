@@ -2,6 +2,7 @@ package org.br.serratec.ecommerce.controllers;
 
 import java.util.List;
 
+import org.br.serratec.ecommerce.dtos.ClienteDTO;
 import org.br.serratec.ecommerce.entities.Cliente;
 import org.br.serratec.ecommerce.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class ClienteController {
 	@Autowired
 	ClienteService clienteService;
 
+	@PostMapping
+	public ResponseEntity<ClienteDTO> save(@RequestBody ClienteDTO clienteDto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteDto);
+	}
+
 	@GetMapping
 	public ResponseEntity <List<Cliente>> findAll() {
 		return new ResponseEntity<>(clienteService.findAll(), HttpStatus.OK);
@@ -36,11 +42,6 @@ public class ClienteController {
 			return new ResponseEntity<>("{Erro: Usuário não encontrado}", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<> (cliente, HttpStatus.OK);
-	}
-
-	@PostMapping
-	public ResponseEntity<Cliente> save(@RequestBody Cliente cliente) {
-		return new ResponseEntity<> (clienteService.save(cliente), HttpStatus.CREATED);
 	}
 
 	@PutMapping
