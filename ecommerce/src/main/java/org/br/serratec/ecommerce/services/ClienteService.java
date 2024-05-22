@@ -29,11 +29,11 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
-	public Cliente deletePerfil(Cliente cliente) {
+	public Cliente deleteCliente(Cliente cliente) {
 		try {
-			if(clienteRepository.existsById(cliente.getCliente())) {
+			if(clienteRepository.existsById(cliente.getClienteId())) {
 
-			clienteRepository.deleteById(cliente.getCliente());
+			clienteRepository.deleteById(cliente.getClienteId());
 			return cliente;
 			}
 		}catch(Exception e){
