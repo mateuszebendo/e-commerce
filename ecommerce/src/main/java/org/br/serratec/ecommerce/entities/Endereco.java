@@ -13,12 +13,12 @@ import jakarta.persistence.Table;
 @Table(name = "endereco")
 public class Endereco {
 
-	// id_endereco, cep, rua, bairro, cidade, numero, complemento, uf
+	// endereco_id, cep, rua, bairro, cidade, numero, complemento, uf
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_endereco")
-	private Integer idEndereco;
+	@Column(name = "endereco_id")
+	private Integer enderecoId;
 	
 	@Column(name = "cep")
 	private Integer cep;
@@ -46,12 +46,12 @@ public class Endereco {
 	private Cliente cliente;
 	
 	
-	public Integer getIdEndereco() {
-		return idEndereco;
+	public Integer getEnderecoId() {
+		return enderecoId;
 	}
 
-	public void setIdEndereco(Integer idEndereco) {
-		this.idEndereco = idEndereco;
+	public void setIdEndereco(Integer enderecoId) {
+		this.enderecoId = enderecoId;
 	}
 
 	public Integer getCep() {

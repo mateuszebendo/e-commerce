@@ -50,7 +50,7 @@ public class EnderecoController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		Boolean deletado = enderecoService.delete(id);
+		Boolean deletado = enderecoService.deleteById(id);
 		if (deletado)
 			return new ResponseEntity<>(HttpStatus.OK);
 		else
