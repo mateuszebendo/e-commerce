@@ -1,10 +1,7 @@
 package org.br.serratec.ecommerce.services;
 
-import org.br.serratec.ecommerce.dtos.PedidoDTO;
 import org.br.serratec.ecommerce.dtos.ProdutoDTO;
-import org.br.serratec.ecommerce.entities.Pedido;
 import org.br.serratec.ecommerce.entities.Produto;
-import org.br.serratec.ecommerce.repositories.PedidoRepository;
 import org.br.serratec.ecommerce.repositories.ProdutoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
