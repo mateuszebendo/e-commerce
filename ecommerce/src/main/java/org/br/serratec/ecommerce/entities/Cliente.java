@@ -57,8 +57,6 @@ public class Cliente {
 		this.endereco = clienteDto.getEndereco();
 	}
 
-
-
 	public Integer getCliente() {
 		return clienteId;
 	}
