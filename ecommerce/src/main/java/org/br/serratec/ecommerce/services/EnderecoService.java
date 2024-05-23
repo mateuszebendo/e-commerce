@@ -25,14 +25,15 @@ public class EnderecoService {
 
 	public EnderecoDTO save(EnderecoDTO enderecoDTO) {
 		ConsultaCepDTO enderecoDTOConsultado = ConsultaCepService.consultaCep(enderecoDTO.getCep());
-		enderecoDTO.setRua(enderecoDTOConsultado.getRua());
+		enderecoDTO.setRua(enderecoDTOConsultado.getlogradouro());
 		enderecoDTO.setBairro(enderecoDTOConsultado.getBairro());
-		enderecoDTO.setCidade(enderecoDTOConsultado.getCidade());
+		enderecoDTO.setCidade(enderecoDTOConsultado.getlocalidade());
 		enderecoDTO.setUf(enderecoDTOConsultado.getUf());
 		Endereco endereco = enderecoRepository.save(new Endereco(enderecoDTO));
 		EnderecoDTO newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
 		return newEnderecoDTO;
 	}
+
 
 	public EnderecoDTO findById(Integer id) {
         Endereco endereco = enderecoRepository.findById(id).orElseThrow(
@@ -55,9 +56,9 @@ public class EnderecoService {
 
 	public EnderecoDTO update(EnderecoDTO enderecoDTO) {
 		ConsultaCepDTO enderecoDTOConsultado = ConsultaCepService.consultaCep(enderecoDTO.getCep());
-		enderecoDTO.setRua(enderecoDTOConsultado.getRua());
+		enderecoDTO.setRua(enderecoDTOConsultado.getlogradouro());
 		enderecoDTO.setBairro(enderecoDTOConsultado.getBairro());
-		enderecoDTO.setCidade(enderecoDTOConsultado.getCidade());
+		enderecoDTO.setCidade(enderecoDTOConsultado.getlocalidade());
 		enderecoDTO.setUf(enderecoDTOConsultado.getUf());
 		Endereco endereco = enderecoRepository.save(modelMapper.map(enderecoDTO, Endereco.class));
 		EnderecoDTO newEnderecoDTO;

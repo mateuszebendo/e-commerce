@@ -3,6 +3,7 @@ package org.br.serratec.ecommerce.controllers;
 import java.util.List;
 
 import org.br.serratec.ecommerce.dtos.EnderecoDTO;
+import org.br.serratec.ecommerce.services.ConsultaCepService;
 import org.br.serratec.ecommerce.services.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,11 @@ public class EnderecoController {
 	@PutMapping
 	public ResponseEntity<EnderecoDTO> update(@RequestBody EnderecoDTO enderecoDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(enderecoService.update(enderecoDTO));
+	}
+
+	@GetMapping("/fake-endereco/{cep}")
+	public ResponseEntity<?> findById(@PathVariable String cep) {
+		return ResponseEntity.status(HttpStatus.OK).body(ConsultaCepService.consultaCep(cep));
 	}
 
 	@GetMapping("/{id}")

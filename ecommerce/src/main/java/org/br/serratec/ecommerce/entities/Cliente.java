@@ -1,23 +1,14 @@
 package org.br.serratec.ecommerce.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.br.serratec.ecommerce.dtos.ClienteDTO;
 
 @Entity
 @Table(name = "cliente")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "clienteId", scope = Cliente.class)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "clienteId", scope = Cliente.class)
 public class Cliente {
 
 	@Id
@@ -43,6 +34,9 @@ public class Cliente {
 	@OneToOne
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos;
 
 	public Cliente() {
 	}

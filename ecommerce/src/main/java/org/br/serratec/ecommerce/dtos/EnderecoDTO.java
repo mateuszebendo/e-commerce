@@ -12,13 +12,12 @@ public class EnderecoDTO {
 	private String numero;
 	private String complemento;
 	private String uf;
-	private Cliente cliente;
 	
 	public EnderecoDTO() {
 		}
 
 	public EnderecoDTO(Integer enderecoId, String cep, String rua, String bairro, String cidade, String numero,
-			String complemento, String uf, Cliente cliente) {
+			String complemento, String uf) {
 		super();
 		this.enderecoId = enderecoId;
 		this.cep = cep;
@@ -28,7 +27,6 @@ public class EnderecoDTO {
 		this.numero = numero;
 		this.complemento = complemento;
 		this.uf = uf;
-		this.cliente = cliente;
 	}
 
 
@@ -96,13 +94,6 @@ public class EnderecoDTO {
 		this.uf = uf;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 
 	
 	
