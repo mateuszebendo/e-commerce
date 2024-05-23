@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -30,6 +31,15 @@ public class GlobalHandleException extends ResponseEntityExceptionHandler {
 
 		problemDetail.setTitle("Recurso Não Encontrado");
 		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/not-found"));
+		return problemDetail;
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	ProblemDetail handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+				HttpStatus.CONFLICT, "Ocorreu um erro de integridade de dados: " + e.getMessage());
+		problemDetail.setTitle("Violação de Integridade de Dados");
+		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/data-integrity-violation"));
 		return problemDetail;
 	}
 

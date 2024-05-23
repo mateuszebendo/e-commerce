@@ -1,7 +1,5 @@
 package org.br.serratec.ecommerce.dtos;
 
-import org.br.serratec.ecommerce.entities.Cliente;
-
 public class EnderecoDTO {
 
 	private Integer enderecoId;
@@ -12,7 +10,7 @@ public class EnderecoDTO {
 	private String numero;
 	private String complemento;
 	private String uf;
-	
+
 	public EnderecoDTO() {
 		}
 
@@ -95,9 +93,9 @@ public class EnderecoDTO {
 	}
 
 
-	
-	
-	
-	
-	
+
+
+
+
+
 }
