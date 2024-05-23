@@ -25,8 +25,7 @@ public class ProdutoController {
 
     @Autowired
     ProdutoService produtoService;
-    @Autowired
-    private ProdutoRepository produtoRepository;
+
 
     @PostMapping
     public ResponseEntity<ProdutoDTO> save(@RequestBody ProdutoDTO produtoDto){
@@ -45,16 +44,11 @@ public class ProdutoController {
 
     @PutMapping
     public ResponseEntity<ProdutoDTO> update(@RequestBody ProdutoDTO produtoDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(produtoDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.update(produtoDto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Integer id) {
-        ProdutoDTO produto = produtoService.findById(id);
-        if(produto != null) {
-            produtoService.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(produto);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{ ERROR: PRODUTO NÃO ENCONTRADO! }");
+        return ResponseEntity.status(HttpStatus.OK).body(produtoService.deleteById(id));
     }
 }

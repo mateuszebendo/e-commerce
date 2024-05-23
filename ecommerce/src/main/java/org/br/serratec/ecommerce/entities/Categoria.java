@@ -1,9 +1,6 @@
 package org.br.serratec.ecommerce.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.br.serratec.ecommerce.dtos.CategoriaDTO;
 
 
@@ -12,6 +9,7 @@ import org.br.serratec.ecommerce.dtos.CategoriaDTO;
 public class Categoria {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="categoria_id")
 	private Integer categoriaId;
 
@@ -25,7 +23,7 @@ public class Categoria {
 	}
 
 	public Categoria(CategoriaDTO categoriaDTO) {
-		this.categoriaId = categoriaDTO.getId();
+		this.categoriaId = categoriaDTO.getCategoriaId();
 		this.nome = categoriaDTO.getNome();
 		this.descricao = categoriaDTO.getDescricao();
 	}
@@ -34,7 +32,7 @@ public class Categoria {
 		return categoriaId;
 	}
 
-	public void setCategoriaId(Integer idCategoria) {
+	public void setCategoriaId(Integer categoriaId) {
 		this.categoriaId = categoriaId;
 	}
 
@@ -53,5 +51,4 @@ public class Categoria {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
 }

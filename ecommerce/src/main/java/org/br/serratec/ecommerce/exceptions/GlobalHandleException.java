@@ -56,10 +56,18 @@ public class GlobalHandleException extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(NoSuchElementException.class)
 	ProblemDetail handleNoSuchElementException(NoSuchElementException e) {
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
-
 		problemDetail.setTitle("Recurso Não Encontrado");
 		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/not-found"));
 		return problemDetail;
+	}
+
+	@ExceptionHandler(NullPointerException.class)
+	ProblemDetail handleNullPointerException(NullPointerException e ) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+		problemDetail.setTitle("Erro na requisição");
+		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/bad-request"));
+		return problemDetail;
+
 	}
 
 	@Override

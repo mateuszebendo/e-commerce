@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 
 public class ProdutoDTO {
     private Integer produtoId;
-    private String nomeDescricao;
+    private String nome;
+    private String descricao;
     private Integer qtdEstoque;
     private LocalDateTime dataCadastro;
     private Double valorUnitario;
@@ -15,8 +16,9 @@ public class ProdutoDTO {
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(String nomeDescricao, Integer qtdEstoque, LocalDateTime dataCadastro, Double valorUnitario, Categoria categoria) {
-        this.nomeDescricao = nomeDescricao;
+    public ProdutoDTO(String nome, String descricao, Integer qtdEstoque, LocalDateTime dataCadastro, Double valorUnitario, Categoria categoria) {
+        this.nome = nome;
+        this.descricao = descricao;
         this.qtdEstoque = qtdEstoque;
         this.dataCadastro = dataCadastro;
         this.valorUnitario = valorUnitario;
@@ -33,12 +35,20 @@ public class ProdutoDTO {
         this.produtoId = produtoId;
     }
 
-    public String getNomeDescricao() {
-        return nomeDescricao;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeDescricao(String nomeDescricao) {
-        this.nomeDescricao = nomeDescricao;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Integer getQtdEstoque() {

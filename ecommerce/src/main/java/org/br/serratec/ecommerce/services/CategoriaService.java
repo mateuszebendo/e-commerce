@@ -21,23 +21,20 @@ public class CategoriaService {
 
         public CategoriaDTO save(CategoriaDTO categoriaDTO){
             Categoria categoriaEncontrada = categoriaRepository.save(new Categoria(categoriaDTO));
-            CategoriaDTO newCategoriaDTO = modelMapper.map(categoriaEncontrada, CategoriaDTO.class);
-            return newCategoriaDTO;
+            return modelMapper.map(categoriaEncontrada, CategoriaDTO.class);
         }
 
         public CategoriaDTO findById (Integer id){
             Categoria categoriaEncontrada = categoriaRepository.findById(id).orElseThrow(
     				()-> new EntidadeNotFoundException("Não foi encontrado um Cliente com Id " + id));
-            CategoriaDTO newCategoriaDTO = modelMapper.map(categoriaEncontrada, CategoriaDTO.class);;
-            return newCategoriaDTO;
+            return modelMapper.map(categoriaEncontrada, CategoriaDTO.class);
         }
 
         public List<CategoriaDTO> findAll (){
             List<Categoria> listaCategorias = categoriaRepository.findAll();
             List<CategoriaDTO> listaCategoriasDTO = new ArrayList<>();
             for(Categoria categoria: listaCategorias) {
-                CategoriaDTO itemDTOLista = modelMapper.map(categoria, CategoriaDTO.class);
-                listaCategoriasDTO.add(itemDTOLista);
+                listaCategoriasDTO.add(modelMapper.map(categoria, CategoriaDTO.class));
             }
             return listaCategoriasDTO;
         }

@@ -1,5 +1,6 @@
 package org.br.serratec.ecommerce.entities;
 
+import jakarta.validation.constraints.NotBlank;
 import org.br.serratec.ecommerce.dtos.EnderecoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

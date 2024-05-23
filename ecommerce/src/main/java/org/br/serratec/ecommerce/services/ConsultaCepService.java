@@ -16,8 +16,9 @@ public class ConsultaCepService {
 		Map<String,String> dadosCep = new HashMap<String,String>();
 		dadosCep.put("cep", cep);
 		ConsultaCepDTO cepConsultadoDTO = restTemplate.getForObject(url, ConsultaCepDTO.class, dadosCep);
+		if(cepConsultadoDTO.getlogradouro() == null) {
+			throw new NullPointerException("Ocorreu um erro: Este cep é invalido!");
+		}
 		return cepConsultadoDTO;
 	}
-	
-	
 }
