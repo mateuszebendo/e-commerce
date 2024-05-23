@@ -3,12 +3,20 @@ package org.br.serratec.ecommerce.entities;
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.*;
 import org.br.serratec.ecommerce.dtos.ClienteDTO;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "clienteId", scope = Cliente.class)
 public class Cliente {
 
 	@Id
@@ -51,7 +59,7 @@ public class Cliente {
 		this.endereco = clienteDto.getEndereco();
 	}
 
-	public Integer getCliente() {
+	public Integer getClienteId() {
 		return clienteId;
 	}
 

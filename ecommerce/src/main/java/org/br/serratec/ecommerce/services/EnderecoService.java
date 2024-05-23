@@ -2,6 +2,7 @@ package org.br.serratec.ecommerce.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.br.serratec.ecommerce.dtos.ConsultaCepDTO;
 import org.br.serratec.ecommerce.dtos.EnderecoDTO;
@@ -46,6 +47,9 @@ public class EnderecoService {
 	public List<EnderecoDTO> findAll(){
 
 		List<Endereco> listaEndereco = enderecoRepository.findAll();
+		if(listaEndereco.isEmpty()) {
+			throw new NoSuchElementException("Ocorreu um erro: Nenhum endereço encontrado");
+		}
 		List<EnderecoDTO> listaEnderecoDTO = new ArrayList<>();
 		for(Endereco endereco : listaEndereco) {
 			EnderecoDTO enderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
