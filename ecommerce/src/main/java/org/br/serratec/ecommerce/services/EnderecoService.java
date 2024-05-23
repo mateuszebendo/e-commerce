@@ -39,8 +39,7 @@ public class EnderecoService {
 	public EnderecoDTO findById(Integer id) {
         Endereco endereco = enderecoRepository.findById(id).orElseThrow(
 				()-> new EntidadeNotFoundException("Não foi encontrado um Endereço com Id " + id));
-        EnderecoDTO newEnderecoDTO;
-        newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
+        EnderecoDTO newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
         return newEnderecoDTO;
 	}
 
@@ -52,8 +51,7 @@ public class EnderecoService {
 		}
 		List<EnderecoDTO> listaEnderecoDTO = new ArrayList<>();
 		for(Endereco endereco : listaEndereco) {
-			EnderecoDTO enderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
-			listaEnderecoDTO.add(enderecoDTO);
+			listaEnderecoDTO.add(modelMapper.map(endereco, EnderecoDTO.class));
 		}
 		return listaEnderecoDTO;
 	}

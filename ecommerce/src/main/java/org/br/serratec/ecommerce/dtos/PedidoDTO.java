@@ -22,7 +22,6 @@ public class PedidoDTO{
 
 	public PedidoDTO(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, Boolean status,
 			Double valorTotal, Cliente cliente) {
-		super();
 		this.pedidoId = pedidoId;
 		this.dataPedido = dataPedido;
 		this.dataEntrega = dataEntrega;

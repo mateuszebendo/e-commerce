@@ -4,7 +4,7 @@ import org.br.serratec.ecommerce.entities.Categoria;
 
 public class CategoriaDTO{
 
-	private Integer id;
+	private Integer categoriaId;
 	private String nome;
 	private String descricao;
 
@@ -12,18 +12,18 @@ public class CategoriaDTO{
 
 	}
 
-	public CategoriaDTO(Integer id, String nome, String descricao) {
-		this.id = id;
+	public CategoriaDTO(Integer categoriaId, String nome, String descricao) {
+		this.categoriaId = categoriaId;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getCategoriaId() {
+		return categoriaId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCategoriaId(Integer categoriaId) {
+		this.categoriaId = categoriaId;
 	}
 
 	public String getNome() {
@@ -41,6 +41,5 @@ public class CategoriaDTO{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
 }
 

@@ -24,8 +24,11 @@ public class Produto {
     @Column(name = "produto_id")
     private Integer produtoId;
 
-    @Column(name = "nome_descricao")
-    private String nomeDesgricao;
+    @Column(name = "nome")
+    private String nome;
+
+    @Column(name = "descricao")
+    private String descricao;
 
     @Column(name = "qtd_estoque")
     private Integer qtdEstoque;
@@ -40,6 +43,8 @@ public class Produto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
+    //FALTA IMAGEM
+
     @OneToMany(mappedBy = "produto")
     private List<ItemPedido> itemPedido;
 
@@ -47,9 +52,10 @@ public class Produto {
     }
 
     public Produto(ProdutoDTO produtoDto) {
-        this.nomeDesgricao = produtoDto.getNomeDescricao();
+        this.nome = produtoDto.getNome();
+        this.descricao = produtoDto.getDescricao();
         this.qtdEstoque = produtoDto.getQtdEstoque();
-        this.dataCadastro = produtoDto.getDataCadastro();
+        this.dataCadastro = LocalDateTime.now();
         this.valorUnitario = produtoDto.getValorUnitario();
         this.categoria = produtoDto.getCategoria();
     }
@@ -62,12 +68,20 @@ public class Produto {
         this.produtoId = produtoId;
     }
 
-    public String getNomeDesgricao() {
-        return nomeDesgricao;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeDesgricao(String nomeDesgricao) {
-        this.nomeDesgricao = nomeDesgricao;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Integer getQtdEstoque() {
@@ -100,5 +114,13 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public List<ItemPedido> getItemPedido() {
+        return itemPedido;
+    }
+
+    public void setItemPedido(List<ItemPedido> itemPedido) {
+        this.itemPedido = itemPedido;
     }
 }
