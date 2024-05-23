@@ -12,7 +12,7 @@ public class ConsultaCepService {
 
 	public static ConsultaCepDTO consultaCep(String cep) {
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "https://h-apigateway.conectagov.estaleiro.serpro.gov.br/api-cep/v1/consulta/cep/{cep}";
+		String url = "https://viacep.com.br/ws/{cep}/json/";
 		Map<String,String> dadosCep = new HashMap<String,String>();
 		dadosCep.put("cep", cep);
 		ConsultaCepDTO cepConsultadoDTO = restTemplate.getForObject(url, ConsultaCepDTO.class, dadosCep);

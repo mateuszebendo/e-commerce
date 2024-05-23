@@ -2,25 +2,17 @@ package org.br.serratec.ecommerce.dtos;
 
 public class ConsultaCepDTO {
 
-	// cep, rua, bairro, cidade, numero, complemento, uf
-	private String id;
-	private String rua;
+	// cep, rua, bairro, localidade, numero, complemento, uf
+	private String logradouro;
 	private String bairro;
-	private String cidade;
+	private String localidade;
 	private String uf;
-	
-	
-	public String getId() {
-		return id;
+
+	public String getlogradouro() {
+		return logradouro;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getRua() {
-		return rua;
-	}
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setlogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 	public String getBairro() {
 		return bairro;
@@ -28,11 +20,11 @@ public class ConsultaCepDTO {
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	public String getCidade() {
-		return cidade;
+	public String getlocalidade() {
+		return localidade;
 	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setlocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 	public String getUf() {
 		return uf;

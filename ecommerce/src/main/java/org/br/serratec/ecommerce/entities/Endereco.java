@@ -59,7 +59,6 @@ public class Endereco {
         this.numero = enderecoDTO.getNumero();
         this.complemento = enderecoDTO.getComplemento();
         this.uf = enderecoDTO.getUf();
-        this.cliente = enderecoDTO.getCliente();
     }
 
 	public Integer getEnderecoId() {
