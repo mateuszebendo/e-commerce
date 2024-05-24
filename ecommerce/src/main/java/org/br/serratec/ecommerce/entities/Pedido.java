@@ -48,8 +48,9 @@ public class Pedido {
 	@Column(name = "valor_total")
 	private Double valorTotal;
 
-	@JsonIgnore
+
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
@@ -61,6 +62,7 @@ public class Pedido {
 	}
 
 	public Pedido(PedidoDTO pedidoDTO) {
+		//this.pedidoId = pedidoDTO.getPedidoId();
 		this.dataPedido = LocalDateTime.now();
 		this.dataEntrega = pedidoDTO.getDataEntrega();
 		this.dataEnvio = pedidoDTO.getDataEnvio();
@@ -145,6 +147,4 @@ public class Pedido {
 	public void setItensPedido(List<ItemPedido> itensPedido) {
 		this.itensPedido = itensPedido;
 	}
-
-
 }

@@ -32,10 +32,8 @@ public class ItemPedidoService {
 		newItemPedido.setPrecoVenda(produto.getValorUnitario());
 		double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
 		newItemPedido.setValorBruto(valorBruto);
-
-		double valorLiquido = newItemPedido.getValorBruto() * (newItemPedido.getPercentualDesconto() / 100);
+		double valorLiquido = newItemPedido.getValorBruto() - (newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto() / 100);
 		newItemPedido.setValorLiquido(valorLiquido);
-
 		itemPedidoRepository.save(newItemPedido);
 		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(newItemPedido, ItemPedidoDTO.class);
 		return newItemPedidoDTO;
@@ -45,12 +43,11 @@ public class ItemPedidoService {
 		Integer itemPedidoId = itemPedidoDTO.getItemPedidoId();
 		ItemPedido itemPedido = itemPedidoRepository.findById(itemPedidoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + itemPedidoId));
-
-		itemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+		ProdutoDTO produto = produtoService.findById(itemPedido.getProduto().getProdutoId());
+		itemPedido.setPrecoVenda(produto.getValorUnitario());
 		double valorBruto = itemPedido.getPrecoVenda() * itemPedido.getQuantidade();
 		itemPedido.setValorBruto(valorBruto);
-
-		double valorLiquido = itemPedido.getValorBruto() * (itemPedido.getPercentualDesconto() / 100);
+		double valorLiquido = itemPedido.getValorBruto() - (itemPedido.getValorBruto() * itemPedido.getPercentualDesconto() / 100);
 		itemPedido.setValorLiquido(valorLiquido);
 
 		itemPedidoRepository.save(itemPedido);

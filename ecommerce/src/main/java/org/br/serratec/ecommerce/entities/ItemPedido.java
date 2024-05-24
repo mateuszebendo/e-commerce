@@ -36,8 +36,8 @@ public class ItemPedido {
 	@Column(name = "valor_liquido")
 	private Double valorLiquido;
 
-	@JsonIgnore
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
 
