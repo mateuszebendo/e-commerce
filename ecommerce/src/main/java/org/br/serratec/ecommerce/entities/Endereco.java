@@ -1,6 +1,5 @@
 package org.br.serratec.ecommerce.entities;
 
-import jakarta.validation.constraints.NotBlank;
 import org.br.serratec.ecommerce.dtos.EnderecoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,7 +14,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "endereco")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "enderecoId", scope = Endereco.class)
 public class Endereco {
 
 	@Id

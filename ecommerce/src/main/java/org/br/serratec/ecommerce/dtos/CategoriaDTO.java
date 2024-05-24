@@ -1,7 +1,5 @@
 package org.br.serratec.ecommerce.dtos;
 
-import org.br.serratec.ecommerce.entities.Categoria;
-
 public class CategoriaDTO{
 
 	private Integer categoriaId;
