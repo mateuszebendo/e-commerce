@@ -26,9 +26,8 @@ public class ItemPedidoService {
 	ModelMapper modelMapper;
 
 	public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO) {
-		var newItemPedido = new ItemPedido(itemPedidoDTO);
+		ItemPedido newItemPedido = new ItemPedido(itemPedidoDTO);
 		ProdutoDTO produto = produtoService.findById(newItemPedido.getProduto().getProdutoId());
-
 
 		newItemPedido.setPrecoVenda(produto.getValorUnitario());
 		double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();

@@ -2,6 +2,8 @@ package org.br.serratec.ecommerce.entities;
 
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +36,7 @@ public class ItemPedido {
 	@Column(name = "valor_liquido")
 	private Double valorLiquido;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
@@ -56,59 +59,59 @@ public class ItemPedido {
 		this.quantidade = itemPedidoDTO.getQuantidade();
 	}
 
-	public Integer getItemPedidoID() {
+	public Integer getItemPedidoId() {
 		return itemPedidoId;
 	}
 
-	public void setItemPedidoID(Integer itemPedidoId) {
+	public void setItemPedidoId(Integer itemPedidoId) {
 		this.itemPedidoId = itemPedidoId;
 	}
 
-	public double getQuantidade() {
+	public Double getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(double quantidade) {
+	public void setQuantidade(Double quantidade) {
 		this.quantidade = quantidade;
 	}
 
-	public double getPrecoVenda() {
+	public Double getPrecoVenda() {
 		return precoVenda;
 	}
 
-	public void setPrecoVenda(double precoVenda) {
+	public void setPrecoVenda(Double precoVenda) {
 		this.precoVenda = precoVenda;
 	}
 
-	public double getPercentualDesconto() {
+	public Double getPercentualDesconto() {
 		return percentualDesconto;
 	}
 
-	public void setPercentualDesconto(double percentualDesconto) {
+	public void setPercentualDesconto(Double percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
 	}
 
-	public double getValorBruto() {
+	public Double getValorBruto() {
 		return valorBruto;
 	}
 
-	public void setValorBruto(double valorBruto) {
+	public void setValorBruto(Double valorBruto) {
 		this.valorBruto = valorBruto;
 	}
 
-	public double getValorLiquido() {
+	public Double getValorLiquido() {
 		return valorLiquido;
 	}
 
-	public void setValorLiquido(double valorLiquido) {
+	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
 	}
 
-	public Pedido getPedidos() {
+	public Pedido getPedido() {
 		return pedido;
 	}
 
-	public void setPedidos(Pedido pedido) {
+	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
 
@@ -119,4 +122,5 @@ public class ItemPedido {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
 }

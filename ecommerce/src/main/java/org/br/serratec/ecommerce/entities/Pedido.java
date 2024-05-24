@@ -7,6 +7,7 @@ import java.util.List;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
@@ -47,10 +48,12 @@ public class Pedido {
 	@Column(name = "valor_total")
 	private Double valorTotal;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="pedido")
 	private List<ItemPedido> itensPedido;
 
