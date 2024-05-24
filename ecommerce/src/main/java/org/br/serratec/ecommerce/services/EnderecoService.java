@@ -46,6 +46,11 @@ public class EnderecoService {
 		Endereco endereco = enderecoRepository.findById(enderecoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Endereço com id " + enderecoId));
 
+		if(enderecoDTO.getCep() == null) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Cep não pode ser Nulo");
+		}else if(enderecoDTO.getCep().equals("")){
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Cep não pode ser Vazio");
+		}
 		ConsultaCepDTO enderecoDTOConsultado = ConsultaCepService.consultaCep(enderecoDTO.getCep());
 		enderecoDTO.setRua(enderecoDTOConsultado.getlogradouro());
 		enderecoDTO.setBairro(enderecoDTOConsultado.getBairro());

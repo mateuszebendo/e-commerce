@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
+import org.br.serratec.ecommerce.entities.ItemPedido;
 import org.br.serratec.ecommerce.entities.Pedido;
 import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.PedidoRepository;
@@ -22,7 +23,16 @@ public class PedidoService {
 	ModelMapper modelMapper;
 
 	public PedidoDTO save(PedidoDTO pedidoDTO) {
-		Pedido pedido = pedidoRepository.save(new Pedido(pedidoDTO));
+
+		Pedido pedido = new Pedido(pedidoDTO);
+		Double valorTotal = 0.0;
+		if(pedidoDTO.getItensPedido() != null) {
+			for(ItemPedido itemPedido: pedido.getItensPedido()) {
+				valorTotal += itemPedido.getValorLiquido();
+				pedido.setValorTotal(valorTotal);
+			}
+		}
+		pedidoRepository.save(pedido);
 		PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
 		return newPedidoDTO;
 	}
@@ -32,9 +42,15 @@ public class PedidoService {
 		Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + pedidoId));
 
+		Double valorTotal = 0.0;
+		if(pedidoDTO.getItensPedido() != null) {
+			for(ItemPedido itemPedido: pedido.getItensPedido()) {
+				valorTotal += itemPedido.getValorLiquido();
+				pedido.setValorTotal(valorTotal);
+			}
+		}
 		pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
-		PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
-		return newPedidoDTO;
+		return pedidoDTO;
 	}
 
 	public PedidoDTO findById(Integer id) {
