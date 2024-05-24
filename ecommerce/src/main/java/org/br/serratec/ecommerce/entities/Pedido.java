@@ -51,7 +51,7 @@ public class Pedido {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-	@OneToMany
+	@OneToMany(mappedBy="pedido")
 	private List<ItemPedido> itensPedido;
 
 	public Pedido() {
@@ -134,4 +134,14 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public List<ItemPedido> getItensPedido() {
+		return itensPedido;
+	}
+
+	public void setItensPedido(List<ItemPedido> itensPedido) {
+		this.itensPedido = itensPedido;
+	}
+
+
 }

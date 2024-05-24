@@ -21,10 +21,9 @@ public class PedidoDTO{
 	public PedidoDTO() {
 	}
 
-	public PedidoDTO(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, StatusPedidoEnum status,
+	public PedidoDTO(LocalDate dataEntrega, LocalDate dataEnvio, StatusPedidoEnum status,
 			Double valorTotal, Cliente cliente) {
-		this.pedidoId = pedidoId;
-		this.dataPedido = dataPedido;
+		this.dataPedido = LocalDateTime.now();
 		this.dataEntrega = dataEntrega;
 		this.dataEnvio = dataEnvio;
 		this.status = status;

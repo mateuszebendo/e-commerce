@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
+import org.br.serratec.ecommerce.dtos.ProdutoDTO;
 import org.br.serratec.ecommerce.entities.ItemPedido;
 import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.ItemPedidoRepository;
@@ -19,16 +20,21 @@ public class ItemPedidoService {
 	ItemPedidoRepository itemPedidoRepository;
 
 	@Autowired
+	ProdutoService produtoService;
+
+	@Autowired
 	ModelMapper modelMapper;
 
 	public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO) {
 		var newItemPedido = new ItemPedido(itemPedidoDTO);
+		ProdutoDTO produto = produtoService.findById(newItemPedido.getProduto().getProdutoId());
 
-		newItemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+
+		newItemPedido.setPrecoVenda(produto.getValorUnitario());
 		double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
 		newItemPedido.setValorBruto(valorBruto);
 
-		double valorLiquido = newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto();
+		double valorLiquido = newItemPedido.getValorBruto() * (newItemPedido.getPercentualDesconto() / 100);
 		newItemPedido.setValorLiquido(valorLiquido);
 
 		itemPedidoRepository.save(newItemPedido);
@@ -45,7 +51,7 @@ public class ItemPedidoService {
 		double valorBruto = itemPedido.getPrecoVenda() * itemPedido.getQuantidade();
 		itemPedido.setValorBruto(valorBruto);
 
-		double valorLiquido = itemPedido.getValorBruto() * itemPedido.getPercentualDesconto();
+		double valorLiquido = itemPedido.getValorBruto() * (itemPedido.getPercentualDesconto() / 100);
 		itemPedido.setValorLiquido(valorLiquido);
 
 		itemPedidoRepository.save(itemPedido);

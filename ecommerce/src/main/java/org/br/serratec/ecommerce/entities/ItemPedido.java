@@ -112,11 +112,11 @@ public class ItemPedido {
 		this.pedido = pedido;
 	}
 
-	public Produto getProdutos() {
+	public Produto getProduto() {
 		return produto;
 	}
 
-	public void setProdutos(Produto produto) {
+	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
 }
