@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -48,9 +49,11 @@ public class Pedido {
 	private Double valorTotal;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="pedido")
 	private List<ItemPedido> itensPedido;
 
@@ -58,6 +61,7 @@ public class Pedido {
 	}
 
 	public Pedido(PedidoDTO pedidoDTO) {
+		//this.pedidoId = pedidoDTO.getPedidoId();
 		this.dataPedido = LocalDateTime.now();
 		this.dataEntrega = pedidoDTO.getDataEntrega();
 		this.dataEnvio = pedidoDTO.getDataEnvio();
@@ -142,6 +146,4 @@ public class Pedido {
 	public void setItensPedido(List<ItemPedido> itensPedido) {
 		this.itensPedido = itensPedido;
 	}
-
-
 }
