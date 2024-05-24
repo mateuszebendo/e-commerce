@@ -29,9 +29,9 @@ public class ClienteService {
 
 	public ClienteDTO update(ClienteDTO clienteDto) {
 		Integer clienteId = clienteDto.getClienteId();
-
 		Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(
-				()-> new EntidadeNotFoundException("Não foi encontrado nenhum Cliente com id " + clienteId));
+				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Cliente com id " + clienteId));
+
 		clienteRepository.save(modelMapper.map(clienteDto, Cliente.class));
 		ClienteDTO clienteDtoSaved = modelMapper.map(cliente, ClienteDTO.class);
 		return clienteDtoSaved;
@@ -39,15 +39,15 @@ public class ClienteService {
 
 	public ClienteDTO findById(Integer id) {
 		Cliente cliente = clienteRepository.findById(id)
-				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado um Cliente com Id " + id));
+				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Cliente com Id " + id));
 		ClienteDTO clienteDTO = modelMapper.map(cliente, ClienteDTO.class);
 		return clienteDTO;
 	}
 
 	public List<ClienteDTO> findAll() {
 		List<Cliente> clientes = clienteRepository.findAll();
-		if(clientes.isEmpty())
-			throw new NoSuchElementException("Ocorreu um erro: Nenhum Cliente encontrado");
+		if (clientes.isEmpty())
+			throw new NoSuchElementException("Nenhum Cliente encontrado");
 		List<ClienteDTO> clientesDto = new ArrayList<>();
 		for (Cliente cliente : clientes) {
 			clientesDto.add(modelMapper.map(cliente, ClienteDTO.class));
@@ -57,7 +57,7 @@ public class ClienteService {
 
 	public Cliente deleteById(Integer id) {
 		Cliente cliente = clienteRepository.findById(id)
-				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado um Cliente com Id " + id));
+				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Cliente com Id " + id));
 		clienteRepository.deleteById(id);
 		return cliente;
 	}

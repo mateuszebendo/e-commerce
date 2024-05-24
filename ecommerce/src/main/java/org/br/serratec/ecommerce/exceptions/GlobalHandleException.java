@@ -16,6 +16,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -26,8 +27,8 @@ public class GlobalHandleException extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(EntidadeNotFoundException.class)
 	ProblemDetail handleEntidadeNotFoundException(EntidadeNotFoundException e) {
-		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-				HttpStatus.NOT_FOUND, "Ocorreu um erro: " + e.getLocalizedMessage());
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,
+				"Ocorreu um erro: " + e.getLocalizedMessage());
 
 		problemDetail.setTitle("Recurso Não Encontrado");
 		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/not-found"));
@@ -36,8 +37,8 @@ public class GlobalHandleException extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	ProblemDetail handleDataIntegrityViolationException(DataIntegrityViolationException e) {
-		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-				HttpStatus.CONFLICT, "Ocorreu um erro de integridade de dados: " + e.getMessage());
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
+				"Ocorreu um erro de integridade de dados: " + e.getMessage());
 		problemDetail.setTitle("Violação de Integridade de Dados");
 		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/data-integrity-violation"));
 		return problemDetail;
@@ -62,12 +63,21 @@ public class GlobalHandleException extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(NullPointerException.class)
-	ProblemDetail handleNullPointerException(NullPointerException e ) {
+	ProblemDetail handleNullPointerException(NullPointerException e) {
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
 		problemDetail.setTitle("Erro na requisição");
 		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/bad-request"));
 		return problemDetail;
 
+	}
+
+	@ExceptionHandler(HttpClientErrorException.class)
+	ProblemDetail handleHttpClientErrorException(HttpClientErrorException e) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
+		problemDetail.setTitle("Erro na requisição");
+		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/bad-request"));
+		//problemDetail.setDetail("Ocorreu um erro ao processar a Requisição");
+		return problemDetail;
 	}
 
 	@Override

@@ -20,9 +20,8 @@ public class EmailService {
 
 		try {
 			emailSender.send(mailMessage);
-		}catch(Exception ex) {
-			System.out.println("Ocorreu um erro ao tentar enviar o e-mail: "
-					+ ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println("Ocorreu um erro ao tentar enviar o e-mail: " + ex.getMessage());
 		}
 	}
 }

@@ -5,82 +5,81 @@ import org.br.serratec.ecommerce.entities.Categoria;
 import java.time.LocalDateTime;
 
 public class ProdutoDTO {
-    private Integer produtoId;
-    private String nome;
-    private String descricao;
-    private Integer qtdEstoque;
-    private LocalDateTime dataCadastro;
-    private Double valorUnitario;
-    private Categoria categoria;
+	private Integer produtoId;
+	private String nome;
+	private String descricao;
+	private Integer qtdEstoque;
+	private LocalDateTime dataCadastro;
+	private Double valorUnitario;
+	private Categoria categoria;
 
-    public ProdutoDTO() {
-    }
+	public ProdutoDTO() {
+	}
 
-    public ProdutoDTO(String nome, String descricao, Integer qtdEstoque, LocalDateTime dataCadastro, Double valorUnitario, Categoria categoria) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.qtdEstoque = qtdEstoque;
-        this.dataCadastro = dataCadastro;
-        this.valorUnitario = valorUnitario;
-        this.categoria = categoria;
-    }
-    
-    
+	public ProdutoDTO(String nome, String descricao, Integer qtdEstoque, LocalDateTime dataCadastro,
+			Double valorUnitario, Categoria categoria) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.qtdEstoque = qtdEstoque;
+		this.dataCadastro = dataCadastro;
+		this.valorUnitario = valorUnitario;
+		this.categoria = categoria;
+	}
 
-    public Integer getProdutoId() {
-        return produtoId;
-    }
+	public Integer getProdutoId() {
+		return produtoId;
+	}
 
-    public void setProdutoId(Integer produtoId) {
-        this.produtoId = produtoId;
-    }
+	public void setProdutoId(Integer produtoId) {
+		this.produtoId = produtoId;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public Integer getQtdEstoque() {
-        return qtdEstoque;
-    }
+	public Integer getQtdEstoque() {
+		return qtdEstoque;
+	}
 
-    public void setQtdEstoque(Integer qtdEstoque) {
-        this.qtdEstoque = qtdEstoque;
-    }
+	public void setQtdEstoque(Integer qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
+	}
 
-    public LocalDateTime getDataCadastro() {
-        return dataCadastro;
-    }
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
 
-    public void setDataCadastro(LocalDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
 
-    public Double getValorUnitario() {
-        return valorUnitario;
-    }
+	public Double getValorUnitario() {
+		return valorUnitario;
+	}
 
-    public void setValorUnitario(Double valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
+	public Categoria getCategoria() {
+		return categoria;
+	}
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 
 }

@@ -16,7 +16,8 @@ public class ClienteDTO {
 	public ClienteDTO() {
 	}
 
-	public ClienteDTO(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone, LocalDate dataNascimento, Endereco endereco) {
+	public ClienteDTO(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
+			LocalDate dataNascimento, Endereco endereco) {
 		this.clienteId = clienteId;
 		this.email = email;
 		this.nomeCompleto = nomeCompleto;

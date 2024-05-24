@@ -12,7 +12,7 @@ public class EnderecoDTO {
 	private String uf;
 
 	public EnderecoDTO() {
-		}
+	}
 
 	public EnderecoDTO(Integer enderecoId, String cep, String rua, String bairro, String cidade, String numero,
 			String complemento, String uf) {
@@ -27,12 +27,11 @@ public class EnderecoDTO {
 		this.uf = uf;
 	}
 
-
-	public Integer getenderecoId() {
+	public Integer getEnderecoId() {
 		return enderecoId;
 	}
 
-	public void setenderecoId(Integer enderecoId) {
+	public void setEnderecoId(Integer enderecoId) {
 		this.enderecoId = enderecoId;
 	}
 
@@ -91,11 +90,4 @@ public class EnderecoDTO {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-
-
-
-
-
-
-
 }

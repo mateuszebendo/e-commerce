@@ -4,14 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +23,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pedido")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "pedidoId", scope = Pedido.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "pedidoId", scope = Pedido.class)
 public class Pedido {
 
 	@Id
@@ -39,8 +40,9 @@ public class Pedido {
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
-	private Boolean status;
+	private StatusPedidoEnum status;
 
 	@Column(name = "valor_total")
 	private Double valorTotal;
@@ -68,8 +70,8 @@ public class Pedido {
 		return pedidoId;
 	}
 
-	public Pedido(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, Boolean status,
-			Double valorTotal, Cliente cliente, List<ItemPedido> itensPedido) {
+	public Pedido(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio,
+			StatusPedidoEnum status, Double valorTotal, Cliente cliente, List<ItemPedido> itensPedido) {
 		super();
 		this.pedidoId = pedidoId;
 		this.dataPedido = dataPedido;
@@ -109,11 +111,11 @@ public class Pedido {
 		this.dataEnvio = dataEnvio;
 	}
 
-	public Boolean getStatus() {
+	public StatusPedidoEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(StatusPedidoEnum status) {
 		this.status = status;
 	}
 

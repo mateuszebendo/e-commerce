@@ -50,7 +50,7 @@ public class Endereco {
 	}
 
 	public Endereco (EnderecoDTO enderecoDTO){
-        this.enderecoId = enderecoDTO.getenderecoId();
+        this.enderecoId = enderecoDTO.getEnderecoId();
         this.cep = enderecoDTO.getCep();
         this.rua = enderecoDTO.getRua();
         this.bairro = enderecoDTO.getBairro();
