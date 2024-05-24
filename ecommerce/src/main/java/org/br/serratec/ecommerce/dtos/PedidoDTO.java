@@ -6,13 +6,14 @@ import java.util.List;
 
 import org.br.serratec.ecommerce.entities.Cliente;
 import org.br.serratec.ecommerce.entities.ItemPedido;
+import org.br.serratec.ecommerce.entities.StatusPedidoEnum;
 
 public class PedidoDTO{
 	private Integer pedidoId;
 	private LocalDateTime dataPedido;
 	private LocalDate dataEntrega;
 	private LocalDate dataEnvio;
-	private Boolean status;
+	private StatusPedidoEnum status;
 	private Double valorTotal;
 	private Cliente cliente;
 	private List<ItemPedido> itensPedido;
@@ -20,7 +21,7 @@ public class PedidoDTO{
 	public PedidoDTO() {
 	}
 
-	public PedidoDTO(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, Boolean status,
+	public PedidoDTO(Integer pedidoId, LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, StatusPedidoEnum status,
 			Double valorTotal, Cliente cliente) {
 		this.pedidoId = pedidoId;
 		this.dataPedido = dataPedido;
@@ -58,10 +59,10 @@ public class PedidoDTO{
 	public void setDataEnvio(LocalDate dataEnvio) {
 		this.dataEnvio = dataEnvio;
 	}
-	public Boolean getStatus() {
+	public StatusPedidoEnum getStatus() {
 		return status;
 	}
-	public void setStatus(Boolean status) {
+	public void setStatus(StatusPedidoEnum status) {
 		this.status = status;
 	}
 	public Double getValorTotal() {

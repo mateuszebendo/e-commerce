@@ -1,12 +1,12 @@
 package org.br.serratec.ecommerce.dtos;
 
-public class CategoriaDTO{
+public class CategoriaDTO {
 
 	private Integer categoriaId;
 	private String nome;
 	private String descricao;
 
-	public CategoriaDTO(){
+	public CategoriaDTO() {
 
 	}
 
@@ -40,4 +40,3 @@ public class CategoriaDTO{
 		this.descricao = descricao;
 	}
 }
-

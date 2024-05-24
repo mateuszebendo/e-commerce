@@ -2,6 +2,7 @@ package org.br.serratec.ecommerce.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 import org.br.serratec.ecommerce.entities.ItemPedido;
@@ -14,64 +15,69 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItemPedidoService {
 
-    @Autowired
-    ItemPedidoRepository itemPedidoRepository;
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
 
-    @Autowired
-    ModelMapper modelMapper;
+	@Autowired
+	ModelMapper modelMapper;
 
-    public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO){
-        var newItemPedido = new ItemPedido(itemPedidoDTO);
+	public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO) {
+		var newItemPedido = new ItemPedido(itemPedidoDTO);
 
-        newItemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
-        double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
-        newItemPedido.setValorBruto(valorBruto);
+		newItemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+		double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
+		newItemPedido.setValorBruto(valorBruto);
 
-        double valorLiquido = newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto();
-        newItemPedido.setValorLiquido(valorLiquido);
+		double valorLiquido = newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto();
+		newItemPedido.setValorLiquido(valorLiquido);
 
-        ItemPedido itemPedidoSaved = itemPedidoRepository.save(new ItemPedido(itemPedidoDTO));
-        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
-        return newItemPedidoDTO;
-    }
+		itemPedidoRepository.save(newItemPedido);
+		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(newItemPedido, ItemPedidoDTO.class);
+		return newItemPedidoDTO;
+	}
 
-    public ItemPedidoDTO findById (Integer id){
-        ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElseThrow(
-				()-> new EntidadeNotFoundException("Não foi encontrado um Item-Pedido com Id " + id));
-        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
-        return newItemPedidoDTO;
-    }
+	public ItemPedidoDTO update(ItemPedidoDTO itemPedidoDTO) {
+		Integer itemPedidoId = itemPedidoDTO.getItemPedidoId();
+		ItemPedido itemPedido = itemPedidoRepository.findById(itemPedidoId).orElseThrow(
+				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + itemPedidoId));
 
-    public List<ItemPedidoDTO> findAll (){
-        List<ItemPedido> itemPedidoSaved = itemPedidoRepository.findAll();
-        List<ItemPedidoDTO> ListItemPedidoDTO = new ArrayList<>();
-        for(ItemPedido itemPedido: itemPedidoSaved) {
-            ItemPedidoDTO itemDTOLista = modelMapper.map(itemPedido, ItemPedidoDTO.class);
-            ListItemPedidoDTO.add(itemDTOLista);
-        }
-        return ListItemPedidoDTO;
-    }
+		itemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+		double valorBruto = itemPedido.getPrecoVenda() * itemPedido.getQuantidade();
+		itemPedido.setValorBruto(valorBruto);
 
-    public ItemPedidoDTO update (ItemPedidoDTO itemPedidoDTO){
-        var newItemPedido = modelMapper.map(itemPedidoDTO, ItemPedido.class);
+		double valorLiquido = itemPedido.getValorBruto() * itemPedido.getPercentualDesconto();
+		itemPedido.setValorLiquido(valorLiquido);
 
-        newItemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
-        double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
-        newItemPedido.setValorBruto(valorBruto);
+		itemPedidoRepository.save(itemPedido);
+		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedido, ItemPedidoDTO.class);
+		return newItemPedidoDTO;
+	}
 
-        double valorLiquido = newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto();
-        newItemPedido.setValorLiquido(valorLiquido);
+	public ItemPedidoDTO findById(Integer id) {
+		ItemPedido itemPedido = itemPedidoRepository.findById(id)
+				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + id));
+		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedido, ItemPedidoDTO.class);
+		return newItemPedidoDTO;
+	}
 
-        ItemPedido itemPedidoSaved = itemPedidoRepository.save(newItemPedido);
-        ItemPedidoDTO newItemPedidoDTO= modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
-        return newItemPedidoDTO;
-    }
+	public List<ItemPedidoDTO> findAll() {
+		List<ItemPedido> listaItemPedido = itemPedidoRepository.findAll();
+		if(listaItemPedido.isEmpty()) {
+			throw new NoSuchElementException("Nenhum Item-Pedido encontrado.");
+		}
+		List<ItemPedidoDTO> ListItemPedidoDTO = new ArrayList<>();
+		for (ItemPedido itemPedido : listaItemPedido) {
+			ItemPedidoDTO itemDTOLista = modelMapper.map(itemPedido, ItemPedidoDTO.class);
+			ListItemPedidoDTO.add(itemDTOLista);
+		}
+		return ListItemPedidoDTO;
+	}
 
-    public ItemPedidoDTO deleteById (Integer id){
-        ItemPedido itemPedidoSaved = itemPedidoRepository.findById(id).orElseThrow(
-				()-> new EntidadeNotFoundException("Não foi encontrado um Item-Pedido com Id " + id));
-        itemPedidoRepository.deleteById(id);
-        ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedidoSaved, ItemPedidoDTO.class);
-        return newItemPedidoDTO;
-    }
+	public ItemPedidoDTO deleteById(Integer id) {
+		ItemPedido itemPedido = itemPedidoRepository.findById(id)
+				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + id));
+		itemPedidoRepository.deleteById(id);
+		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedido, ItemPedidoDTO.class);
+		return newItemPedidoDTO;
+	}
 }
