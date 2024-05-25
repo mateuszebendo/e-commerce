@@ -21,6 +21,11 @@ public class ItemPedidoController {
          return ResponseEntity.status(HttpStatus.CREATED).body(itemPedidoService.save(itemPedidoDTO));
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<List<ItemPedidoDTO>> saveAll (@RequestBody List<ItemPedidoDTO> listItemPedidoDTO){
+         return ResponseEntity.status(HttpStatus.CREATED).body(itemPedidoService.saveAll(listItemPedidoDTO));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ItemPedidoDTO> findById (@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(itemPedidoService.findById(id));

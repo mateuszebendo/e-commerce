@@ -19,7 +19,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.FutureOrPresent;
 
 @Entity
 @Table(name = "pedido")
@@ -31,15 +30,15 @@ public class Pedido {
 	@Column(name = "pedido_id")
 	private Integer pedidoId;
 
-	@FutureOrPresent
+//	@FutureOrPresent
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
 
-	@FutureOrPresent
+//	@FutureOrPresent
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
 
-	@FutureOrPresent
+//	@FutureOrPresent
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
 
@@ -64,8 +63,7 @@ public class Pedido {
 	}
 
 	public Pedido(PedidoDTO pedidoDTO) {
-		//this.pedidoId = pedidoDTO.getPedidoId();
-		this.dataPedido = LocalDateTime.now();
+		this.dataPedido = pedidoDTO.getDataPedido();
 		this.dataEntrega = pedidoDTO.getDataEntrega();
 		this.dataEnvio = pedidoDTO.getDataEnvio();
 		this.status = pedidoDTO.getStatus();

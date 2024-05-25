@@ -123,4 +123,17 @@ public class ItemPedido {
 		this.produto = produto;
 	}
 
+	@Override
+	public String toString() {
+		return "ItemPedido{" +
+				"produto=" + produto +
+				", valorLiquido=" + valorLiquido +
+				", valorBruto=" + valorBruto +
+				", percentualDesconto=" + percentualDesconto +
+				", precoVenda=" + precoVenda +
+				", quantidade=" + quantidade +
+				", itemPedidoId=" + itemPedidoId +
+				'}';
+	}
+
 }

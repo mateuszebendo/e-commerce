@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 import org.br.serratec.ecommerce.dtos.RelatorioPedidoDTO;
+import org.br.serratec.ecommerce.entities.ItemPedido;
 import org.br.serratec.ecommerce.entities.Pedido;
 import org.br.serratec.ecommerce.entities.StatusPedidoEnum;
 import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
@@ -28,39 +29,10 @@ public class PedidoService {
 
 	public PedidoDTO save(PedidoDTO pedidoDTO) {
 		Pedido pedido = new Pedido(pedidoDTO);
+		pedido.setStatus(StatusPedidoEnum.ABERTO);
 		pedidoRepository.save(pedido);
 		PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
 		return newPedidoDTO;
-	}
-
-	public RelatorioPedidoDTO criaRelatorio (Integer id){
-		Pedido pedido = pedidoRepository.findById(id).orElseThrow(
-				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + id));
-		var relatorioPedido = modelMapper.map(pedido, RelatorioPedidoDTO.class);
-		return relatorioPedido;
-	}
-
-	public PedidoDTO update(PedidoDTO pedidoDTO) {
-		Integer pedidoId = pedidoDTO.getPedidoId();
-		Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(
-				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + pedidoId));
-		modelMapper.map(pedidoDTO, pedido);
-
-//		Double valorTotal = 0.0;
-//		if(pedidoDTO.getItensPedido() != null) {
-//			for(ItemPedido itemPedido: pedido.getItensPedido()) {
-//				valorTotal += itemPedido.getValorLiquido();
-//			}
-//			pedido.setValorTotal(valorTotal);
-//		}
-		Pedido pedidoAtt = pedidoRepository.save(pedido);
-
-		if(pedidoDTO.getStatus().equals(StatusPedidoEnum.REALIZADO)){
-			RelatorioPedidoDTO relatorio = criaRelatorio(pedidoAtt.getPedidoId());
-			emailService.enviarEmail(pedidoAtt.getCliente().getEmail(), "RELATÓRIO DO SEU PEDIDO", relatorio.toString());
-		}
-
-		return modelMapper.map(pedido, PedidoDTO.class);
 	}
 
 	public PedidoDTO findById(Integer id) {
@@ -72,15 +44,59 @@ public class PedidoService {
 
 	public List<PedidoDTO> findAll() {
 		List<Pedido> listaPedido = pedidoRepository.findAll();
-		if(listaPedido.isEmpty()) {
+		if (listaPedido.isEmpty()) {
 			throw new NoSuchElementException("Nenhum pedido encontrado.");
 		}
 		List<PedidoDTO> listaPedidoDTO = new ArrayList<>();
 		for (Pedido pedido : listaPedido) {
-			PedidoDTO pedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
-			listaPedidoDTO.add(pedidoDTO);
+			if (!pedido.getStatus().equals(StatusPedidoEnum.CANCELADO)) {
+				PedidoDTO pedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
+				listaPedidoDTO.add(pedidoDTO);
+			}
 		}
 		return listaPedidoDTO;
+	}
+
+	public PedidoDTO updateDataEntrega(PedidoDTO pedidoDTO) {
+		Integer pedidoId = pedidoDTO.getPedidoId();
+		Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(
+				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + pedidoId));
+
+		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
+		pedido.setStatus(StatusPedidoEnum.FINALIZADO);
+		pedidoRepository.save(pedido);
+		return modelMapper.map(pedido, PedidoDTO.class);
+	}
+
+	public PedidoDTO update(PedidoDTO pedidoDTO) {
+		Integer pedidoId = pedidoDTO.getPedidoId();
+		Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(
+				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + pedidoId));
+
+		if (pedidoDTO.getDataPedido() != null && pedido.getItensPedido().size() > 0) {
+			pedido.setDataPedido(pedidoDTO.getDataPedido());
+			pedido.setStatus(StatusPedidoEnum.REALIZADO);
+
+			Double valorTotal = 0.0;
+			for (ItemPedido itemPedido : pedido.getItensPedido()) {
+				valorTotal += itemPedido.getValorLiquido();
+			}
+			pedido.setValorTotal(valorTotal);
+
+			RelatorioPedidoDTO relatorio = modelMapper.map(pedido, RelatorioPedidoDTO.class);
+			emailService.enviarEmail(pedido.getCliente().getEmail(), "RELATÓRIO DO SEU PEDIDO", relatorio.toString());
+
+		} else if (pedido.getItensPedido().isEmpty()) {
+			throw new NullPointerException("Não é possivel criar um pedido sem itens");
+		}
+
+		if (pedidoDTO.getDataEnvio() != null) {
+			pedido.setDataEnvio(pedidoDTO.getDataEnvio());
+			pedido.setStatus(StatusPedidoEnum.ENVIADO);
+		}
+
+		pedidoRepository.save(pedido);
+		return modelMapper.map(pedido, PedidoDTO.class);
 	}
 
 	public PedidoDTO deleteById(Integer id) {
