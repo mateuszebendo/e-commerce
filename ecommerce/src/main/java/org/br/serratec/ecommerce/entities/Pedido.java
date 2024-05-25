@@ -33,15 +33,15 @@ public class Pedido {
 	@Column(name = "pedido_id")
 	private Integer pedidoId;
 
-	@FutureOrPresent
+//	@FutureOrPresent
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
 
-	@FutureOrPresent
+//	@FutureOrPresent
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
 
-	@FutureOrPresent
+//	@FutureOrPresent
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
 

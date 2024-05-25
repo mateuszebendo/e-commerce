@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 import org.br.serratec.ecommerce.dtos.RelatorioPedidoDTO;
+import org.br.serratec.ecommerce.entities.Cliente;
 import org.br.serratec.ecommerce.entities.ItemPedido;
 import org.br.serratec.ecommerce.entities.Pedido;
 import org.br.serratec.ecommerce.entities.StatusPedidoEnum;
 import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
+import org.br.serratec.ecommerce.repositories.ClienteRepository;
+import org.br.serratec.ecommerce.repositories.ItemPedidoRepository;
 import org.br.serratec.ecommerce.repositories.PedidoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,12 @@ public class PedidoService {
 
 	@Autowired
 	PedidoRepository pedidoRepository;
+
+	@Autowired
+	ClienteRepository clienteRepository;
+
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
 
 	@Autowired
 	EmailService emailService;
@@ -53,12 +63,21 @@ public class PedidoService {
 //			}
 //			pedido.setValorTotal(valorTotal);
 //		}
+		var cliente = clienteRepository.findById(pedido.getCliente().getClienteId()).get();
+		List<ItemPedido> itemPedidos = new ArrayList<>();
+		for (ItemPedido itemPedido : itemPedidoRepository.findAll()) {
+			if(itemPedido.getPedido().getPedidoId() == pedidoId) itemPedidos.add(itemPedido);
+		}
+
+		pedidoDTO.setCliente(cliente);
+		pedidoDTO.setItensPedido(itemPedidos);
 
 	    pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
 
 
 		if(pedidoDTO.getStatus().equals(StatusPedidoEnum.REALIZADO)){
 			RelatorioPedidoDTO relatorio = criaRelatorio(pedidoDTO.getPedidoId());
+			System.out.println(relatorio.toString());
 			emailService.enviarEmail(pedido.getCliente().getEmail(), "RELATÓRIO DO SEU PEDIDO", relatorio.toString());
 		}
 
