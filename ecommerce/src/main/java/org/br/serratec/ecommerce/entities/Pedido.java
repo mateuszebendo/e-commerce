@@ -4,12 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.FutureOrPresent;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -52,6 +49,7 @@ public class Pedido {
 	@Column(name = "valor_total")
 	private Double valorTotal;
 
+
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "cliente_id")
@@ -65,8 +63,7 @@ public class Pedido {
 	}
 
 	public Pedido(PedidoDTO pedidoDTO) {
-		//this.pedidoId = pedidoDTO.getPedidoId();
-		this.dataPedido = LocalDateTime.now();
+		this.dataPedido = pedidoDTO.getDataPedido();
 		this.dataEntrega = pedidoDTO.getDataEntrega();
 		this.dataEnvio = pedidoDTO.getDataEnvio();
 		this.status = pedidoDTO.getStatus();

@@ -1,13 +1,10 @@
 package org.br.serratec.ecommerce.dtos;
 
-import org.br.serratec.ecommerce.entities.Cliente;
-import org.br.serratec.ecommerce.entities.ItemPedido;
-import org.br.serratec.ecommerce.entities.Pedido;
-import org.br.serratec.ecommerce.entities.StatusPedidoEnum;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.br.serratec.ecommerce.entities.ItemPedido;
+import org.br.serratec.ecommerce.entities.Pedido;
 
 public class RelatorioPedidoDTO {
 
