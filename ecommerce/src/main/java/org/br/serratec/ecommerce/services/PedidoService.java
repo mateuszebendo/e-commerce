@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
+import org.br.serratec.ecommerce.dtos.RelatorioPedidoDTO;
 import org.br.serratec.ecommerce.entities.ItemPedido;
 import org.br.serratec.ecommerce.entities.Pedido;
+import org.br.serratec.ecommerce.entities.StatusPedidoEnum;
 import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.PedidoRepository;
 import org.modelmapper.ModelMapper;
@@ -20,21 +22,23 @@ public class PedidoService {
 	PedidoRepository pedidoRepository;
 
 	@Autowired
+	EmailService emailService;
+
+	@Autowired
 	ModelMapper modelMapper;
 
 	public PedidoDTO save(PedidoDTO pedidoDTO) {
-
 		Pedido pedido = new Pedido(pedidoDTO);
-		Double valorTotal = 0.0;
-		if(pedidoDTO.getItensPedido() != null) {
-			for(ItemPedido itemPedido: pedido.getItensPedido()) {
-				valorTotal += itemPedido.getValorLiquido();
-				pedido.setValorTotal(valorTotal);
-			}
-		}
 		pedidoRepository.save(pedido);
 		PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
 		return newPedidoDTO;
+	}
+
+	public RelatorioPedidoDTO criaRelatorio (Integer id){
+		Pedido pedido = pedidoRepository.findById(id).orElseThrow(
+				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + id));
+		var relatorioPedido = modelMapper.map(pedido, RelatorioPedidoDTO.class);
+		return relatorioPedido;
 	}
 
 	public PedidoDTO update(PedidoDTO pedidoDTO) {
@@ -42,15 +46,24 @@ public class PedidoService {
 		Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + pedidoId));
 
-		Double valorTotal = 0.0;
-		if(pedidoDTO.getItensPedido() != null) {
-			for(ItemPedido itemPedido: pedido.getItensPedido()) {
-				valorTotal += itemPedido.getValorLiquido();
-				pedido.setValorTotal(valorTotal);
-			}
+//		Double valorTotal = 0.0;
+//		if(pedidoDTO.getItensPedido() != null) {
+//			for(ItemPedido itemPedido: pedido.getItensPedido()) {
+//				valorTotal += itemPedido.getValorLiquido();
+//			}
+//			pedido.setValorTotal(valorTotal);
+//		}
+
+	    pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
+
+
+		if(pedidoDTO.getStatus().equals(StatusPedidoEnum.REALIZADO)){
+			RelatorioPedidoDTO relatorio = criaRelatorio(pedidoDTO.getPedidoId());
+			emailService.enviarEmail(pedido.getCliente().getEmail(), "RELATÓRIO DO SEU PEDIDO", relatorio.toString());
 		}
-		pedidoRepository.save(modelMapper.map(pedidoDTO, Pedido.class));
-		return pedidoDTO;
+
+
+		return modelMapper.map(pedido, PedidoDTO.class);
 	}
 
 	public PedidoDTO findById(Integer id) {

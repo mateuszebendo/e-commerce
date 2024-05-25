@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.FutureOrPresent;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -31,12 +33,15 @@ public class Pedido {
 	@Column(name = "pedido_id")
 	private Integer pedidoId;
 
+	@FutureOrPresent
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
 
+	@FutureOrPresent
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
 
+	@FutureOrPresent
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
 
@@ -48,9 +53,11 @@ public class Pedido {
 	private Double valorTotal;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+//	@JsonIgnore
 	@OneToMany(mappedBy="pedido")
 	private List<ItemPedido> itensPedido;
 
@@ -58,6 +65,7 @@ public class Pedido {
 	}
 
 	public Pedido(PedidoDTO pedidoDTO) {
+		//this.pedidoId = pedidoDTO.getPedidoId();
 		this.dataPedido = LocalDateTime.now();
 		this.dataEntrega = pedidoDTO.getDataEntrega();
 		this.dataEnvio = pedidoDTO.getDataEnvio();
@@ -139,9 +147,21 @@ public class Pedido {
 		return itensPedido;
 	}
 
+	@Override
+	public String toString() {
+		return "Pedido{" +
+				"pedidoId=" + pedidoId +
+				", dataPedido=" + dataPedido +
+				", dataEntrega=" + dataEntrega +
+				", dataEnvio=" + dataEnvio +
+				", status=" + status +
+				", valorTotal=" + valorTotal +
+				", cliente=" + cliente +
+				", itensPedido=" + itensPedido +
+				'}';
+	}
+
 	public void setItensPedido(List<ItemPedido> itensPedido) {
 		this.itensPedido = itensPedido;
 	}
-
-
 }

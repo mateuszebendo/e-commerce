@@ -23,19 +23,28 @@ public class ItemPedidoService {
 	ProdutoService produtoService;
 
 	@Autowired
+	PedidoService pedidoService;
+
+	@Autowired
 	ModelMapper modelMapper;
 
 	public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO) {
 		var newItemPedido = new ItemPedido(itemPedidoDTO);
 		ProdutoDTO produto = produtoService.findById(newItemPedido.getProduto().getProdutoId());
-
-
 		newItemPedido.setPrecoVenda(produto.getValorUnitario());
 		double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
 		newItemPedido.setValorBruto(valorBruto);
-
-		double valorLiquido = newItemPedido.getValorBruto() * (newItemPedido.getPercentualDesconto() / 100);
+		double valorLiquido = newItemPedido.getValorBruto() - (newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto() / 100);
 		newItemPedido.setValorLiquido(valorLiquido);
+
+		var pedido = pedidoService.findById(itemPedidoDTO.getPedido().getPedidoId());
+		if( pedido.getValorTotal() != null) {
+			pedido.setValorTotal(pedido.getValorTotal() + valorLiquido);
+		}
+		else {
+			pedido.setValorTotal(valorLiquido);
+		}
+		pedidoService.update(pedido);
 
 		itemPedidoRepository.save(newItemPedido);
 		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(newItemPedido, ItemPedidoDTO.class);
@@ -44,14 +53,14 @@ public class ItemPedidoService {
 
 	public ItemPedidoDTO update(ItemPedidoDTO itemPedidoDTO) {
 		Integer itemPedidoId = itemPedidoDTO.getItemPedidoId();
-		ItemPedido itemPedido = itemPedidoRepository.findById(itemPedidoId).orElseThrow(
+		itemPedidoRepository.findById(itemPedidoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + itemPedidoId));
-
-		itemPedido.setPrecoVenda(itemPedidoDTO.getProduto().getValorUnitario());
+		ItemPedido itemPedido = modelMapper.map(itemPedidoDTO, ItemPedido.class);
+		ProdutoDTO produto = produtoService.findById(itemPedido.getProduto().getProdutoId());
+		itemPedido.setPrecoVenda(produto.getValorUnitario());
 		double valorBruto = itemPedido.getPrecoVenda() * itemPedido.getQuantidade();
 		itemPedido.setValorBruto(valorBruto);
-
-		double valorLiquido = itemPedido.getValorBruto() * (itemPedido.getPercentualDesconto() / 100);
+		double valorLiquido = itemPedido.getValorBruto() - (itemPedido.getValorBruto() * itemPedido.getPercentualDesconto() / 100);
 		itemPedido.setValorLiquido(valorLiquido);
 
 		itemPedidoRepository.save(itemPedido);
@@ -83,6 +92,11 @@ public class ItemPedidoService {
 		ItemPedido itemPedido = itemPedidoRepository.findById(id)
 				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + id));
 		itemPedidoRepository.deleteById(id);
+
+		var pedido = pedidoService.findById(itemPedido.getPedido().getPedidoId());
+		pedido.setValorTotal(pedido.getValorTotal() - itemPedido.getValorLiquido());
+		pedidoService.update(pedido);
+
 		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedido, ItemPedidoDTO.class);
 		return newItemPedidoDTO;
 	}
