@@ -65,7 +65,7 @@ public class RelatorioPedidoDTO {
 				"pedidoId=" + pedidoId +
 				", dataPedido=" + dataPedido +
 				", valorTotal=" + valorTotal +
-				", itensPedido=" + itensPedido.toString()+
+				", itensPedido=" + itensPedido+
 				'}';
 	}
 }

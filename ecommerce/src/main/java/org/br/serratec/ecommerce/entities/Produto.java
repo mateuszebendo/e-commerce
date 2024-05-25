@@ -126,4 +126,12 @@ public class Produto {
     public void setItemPedido(List<ItemPedido> itemPedido) {
         this.itemPedido = itemPedido;
     }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "nome='" + nome + '\'' +
+                ", produtoId=" + produtoId +
+                '}';
+    }
 }
