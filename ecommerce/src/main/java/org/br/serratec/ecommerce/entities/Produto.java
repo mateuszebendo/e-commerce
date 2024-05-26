@@ -4,19 +4,10 @@ package org.br.serratec.ecommerce.entities;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.br.serratec.ecommerce.dtos.ProdutoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "produto")
@@ -45,7 +36,9 @@ public class Produto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    //FALTA IMAGEM
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private Imagem imagem;
 
     @JsonIgnore
     @OneToMany(mappedBy = "produto")
@@ -125,5 +118,13 @@ public class Produto {
 
     public void setItemPedido(List<ItemPedido> itemPedido) {
         this.itemPedido = itemPedido;
+    }
+
+    public Imagem getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(Imagem imagem) {
+        this.imagem = imagem;
     }
 }

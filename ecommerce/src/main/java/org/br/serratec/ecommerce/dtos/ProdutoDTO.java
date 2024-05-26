@@ -1,6 +1,7 @@
 package org.br.serratec.ecommerce.dtos;
 
 import org.br.serratec.ecommerce.entities.Categoria;
+import org.br.serratec.ecommerce.entities.Imagem;
 
 import java.time.LocalDateTime;
 
@@ -12,19 +13,25 @@ public class ProdutoDTO {
 	private LocalDateTime dataCadastro;
 	private Double valorUnitario;
 	private Categoria categoria;
+	private Imagem imagem;
+
+
 
 	public ProdutoDTO() {
 	}
 
 	public ProdutoDTO(String nome, String descricao, Integer qtdEstoque, LocalDateTime dataCadastro,
-			Double valorUnitario, Categoria categoria) {
+			Double valorUnitario, Categoria categoria, Imagem imagem) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.qtdEstoque = qtdEstoque;
 		this.dataCadastro = dataCadastro;
 		this.valorUnitario = valorUnitario;
 		this.categoria = categoria;
+		this.imagem = imagem;
+
 	}
+
 
 	public Integer getProdutoId() {
 		return produtoId;
@@ -82,4 +89,11 @@ public class ProdutoDTO {
 		this.categoria = categoria;
 	}
 
+	public Imagem getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(Imagem imagem) {
+		this.imagem = imagem;
+	}
 }
