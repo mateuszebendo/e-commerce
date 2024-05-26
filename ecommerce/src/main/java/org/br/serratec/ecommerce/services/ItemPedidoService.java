@@ -26,32 +26,27 @@ public class ItemPedidoService {
 	ModelMapper modelMapper;
 
 	public ItemPedidoDTO save(ItemPedidoDTO itemPedidoDTO) {
-		var newItemPedido = new ItemPedido(itemPedidoDTO);
+		ItemPedido newItemPedido = new ItemPedido(itemPedidoDTO);
 		ProdutoDTO produto = produtoService.findById(newItemPedido.getProduto().getProdutoId());
+
 		newItemPedido.setPrecoVenda(produto.getValorUnitario());
 		double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
 		newItemPedido.setValorBruto(valorBruto);
-		double valorLiquido = newItemPedido.getValorBruto() - (newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto() / 100);
+		double valorLiquido = newItemPedido.getValorBruto()
+				- (newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto() / 100);
 		newItemPedido.setValorLiquido(valorLiquido);
+
 		itemPedidoRepository.save(newItemPedido);
 		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(newItemPedido, ItemPedidoDTO.class);
 		return newItemPedidoDTO;
 	}
 
-	public ItemPedidoDTO update(ItemPedidoDTO itemPedidoDTO) {
-		Integer itemPedidoId = itemPedidoDTO.getItemPedidoId();
-		ItemPedido itemPedido = itemPedidoRepository.findById(itemPedidoId).orElseThrow(
-				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + itemPedidoId));
-		ProdutoDTO produto = produtoService.findById(itemPedido.getProduto().getProdutoId());
-		itemPedido.setPrecoVenda(produto.getValorUnitario());
-		double valorBruto = itemPedido.getPrecoVenda() * itemPedido.getQuantidade();
-		itemPedido.setValorBruto(valorBruto);
-		double valorLiquido = itemPedido.getValorBruto() - (itemPedido.getValorBruto() * itemPedido.getPercentualDesconto() / 100);
-		itemPedido.setValorLiquido(valorLiquido);
-
-		itemPedidoRepository.save(itemPedido);
-		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedido, ItemPedidoDTO.class);
-		return newItemPedidoDTO;
+	public List<ItemPedidoDTO> saveAll(List<ItemPedidoDTO> listItemPedidoDTO) {
+		List<ItemPedidoDTO> listItensPedidoDTO = new ArrayList<>();
+		for (ItemPedidoDTO itemPedidoDTO : listItemPedidoDTO) {
+			listItensPedidoDTO.add(save(itemPedidoDTO));
+		}
+		return listItensPedidoDTO;
 	}
 
 	public ItemPedidoDTO findById(Integer id) {
@@ -63,7 +58,7 @@ public class ItemPedidoService {
 
 	public List<ItemPedidoDTO> findAll() {
 		List<ItemPedido> listaItemPedido = itemPedidoRepository.findAll();
-		if(listaItemPedido.isEmpty()) {
+		if (listaItemPedido.isEmpty()) {
 			throw new NoSuchElementException("Nenhum Item-Pedido encontrado.");
 		}
 		List<ItemPedidoDTO> ListItemPedidoDTO = new ArrayList<>();
@@ -72,6 +67,26 @@ public class ItemPedidoService {
 			ListItemPedidoDTO.add(itemDTOLista);
 		}
 		return ListItemPedidoDTO;
+	}
+
+	public ItemPedidoDTO update(ItemPedidoDTO itemPedidoDTO) {
+		Integer itemPedidoId = itemPedidoDTO.getItemPedidoId();
+		ItemPedido itemPedido = itemPedidoRepository.findById(itemPedidoId).orElseThrow(
+				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + itemPedidoId));
+
+		ProdutoDTO produto = produtoService.findById(itemPedido.getProduto().getProdutoId());
+		itemPedido.setPrecoVenda(produto.getValorUnitario());
+
+		double valorBruto = itemPedido.getPrecoVenda() * itemPedidoDTO.getQuantidade();
+		itemPedido.setValorBruto(valorBruto);
+
+		double valorLiquido = itemPedido.getValorBruto()
+				- (itemPedido.getValorBruto() * itemPedidoDTO.getPercentualDesconto() / 100);
+		itemPedido.setValorLiquido(valorLiquido);
+
+		itemPedidoRepository.save(itemPedido);
+		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedido, ItemPedidoDTO.class);
+		return newItemPedidoDTO;
 	}
 
 	public ItemPedidoDTO deleteById(Integer id) {

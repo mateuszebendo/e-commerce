@@ -9,7 +9,7 @@ import org.br.serratec.ecommerce.dtos.CategoriaDTO;
 public class Categoria {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="categoria_id")
 	private Integer categoriaId;
 

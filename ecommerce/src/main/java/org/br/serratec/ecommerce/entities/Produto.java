@@ -120,11 +120,19 @@ public class Produto {
         this.itemPedido = itemPedido;
     }
 
+
     public Imagem getImagem() {
         return imagem;
     }
 
     public void setImagem(Imagem imagem) {
         this.imagem = imagem;
+    }
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "nome='" + nome + '\'' +
+                ", produtoId=" + produtoId +
+                '}';
     }
 }

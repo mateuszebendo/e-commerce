@@ -29,8 +29,14 @@ public class PedidoController {
 	}
 
 	@PutMapping
-    public ResponseEntity<PedidoDTO> update(@RequestBody PedidoDTO pedidoDTO){
+    public ResponseEntity<PedidoDTO> update(@RequestBody PedidoDTO pedidoDTO) throws Exception{
 		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.update(pedidoDTO));
+	}
+
+
+	@PutMapping("/data-entrega")
+    public ResponseEntity<PedidoDTO> updateDataEntrega(@RequestBody PedidoDTO pedidoDTO){
+		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.updateDataEntrega(pedidoDTO));
 	}
 
 	@GetMapping("/{id}")

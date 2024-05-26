@@ -1,10 +1,10 @@
 package org.br.serratec.ecommerce.entities;
 
 public enum StatusPedidoEnum {
-	ABERTO,
-    REALIZADO,
-    EM_PROCESSAMENTO,
-    CANCELADO,
-    ENVIADO,
-    FINALIZADO
+	ABERTO,  				// Todo pedido criado
+    REALIZADO,				// Fechou o pedido
+    EM_PROCESSAMENTO,		// Equipe separando produtos
+    CANCELADO,				// Cliente cancelou
+    ENVIADO,				// Pedido enviado
+    FINALIZADO				// Pedido entregue
 }

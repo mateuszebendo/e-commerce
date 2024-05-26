@@ -1,7 +1,8 @@
 package org.br.serratec.ecommerce.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.br.serratec.ecommerce.dtos.ItemPedidoDTO;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -121,4 +122,18 @@ public class ItemPedido {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemPedido{" +
+				"produto=" + produto +
+				", valorLiquido=" + valorLiquido +
+				", valorBruto=" + valorBruto +
+				", percentualDesconto=" + percentualDesconto +
+				", precoVenda=" + precoVenda +
+				", quantidade=" + quantidade +
+				", itemPedidoId=" + itemPedidoId +
+				'}';
+	}
+
 }
