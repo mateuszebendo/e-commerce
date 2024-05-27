@@ -108,4 +108,11 @@ public class PedidoService {
 		pedidoRepository.delete(pedido);
 		return newPedidoDTO;
 	}
+
+	public PedidoDTO cancelaPedido(Integer id) {
+		Pedido pedido = pedidoRepository.findById(id)
+				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + id));
+		pedido.setStatus(StatusPedidoEnum.CANCELADO);
+		return modelMapper.map(pedido, PedidoDTO.class);
+	}
 }

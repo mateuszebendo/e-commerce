@@ -4,10 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import jakarta.persistence.*;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
 
 @Entity
 @Table(name = "pedido")
@@ -19,15 +32,15 @@ public class Pedido {
 	@Column(name = "pedido_id")
 	private Integer pedidoId;
 
-//	@FutureOrPresent
+	@FutureOrPresent
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
 
-//	@FutureOrPresent
+	@FutureOrPresent
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
 
-//	@FutureOrPresent
+	@FutureOrPresent
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
 
@@ -44,7 +57,7 @@ public class Pedido {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-//	@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy="pedido",  fetch = FetchType.EAGER)
 	private List<ItemPedido> itensPedido;
 
