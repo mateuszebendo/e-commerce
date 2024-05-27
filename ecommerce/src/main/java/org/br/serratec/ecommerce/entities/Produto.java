@@ -20,7 +20,7 @@ public class Produto {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao", unique=true)
     private String descricao;
 
     @Column(name = "qtd_estoque")

@@ -13,6 +13,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,11 +21,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import org.br.serratec.ecommerce.enums.StatusPedidoEnum;
+
+import jakarta.validation.constraints.FutureOrPresent;
+
 
 @Entity
 @Table(name = "pedido")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "pedidoId", scope = Pedido.class)
 public class Pedido {
 
 	@Id
@@ -57,8 +61,8 @@ public class Pedido {
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
-//	@JsonIgnore
-	@OneToMany(mappedBy="pedido")
+	@JsonIgnore
+	@OneToMany(mappedBy="pedido",  fetch = FetchType.EAGER)
 	private List<ItemPedido> itensPedido;
 
 	public Pedido() {

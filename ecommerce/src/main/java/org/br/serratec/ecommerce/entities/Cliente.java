@@ -30,7 +30,7 @@ public class Cliente{
 	@Column(name = "nome_completo")
 	private String nomeCompleto;
 
-	@Column(name = "cpf")
+	@Column(name = "cpf", unique = true)
 	private String cpf;
 
 	@Column(name = "telefone")
