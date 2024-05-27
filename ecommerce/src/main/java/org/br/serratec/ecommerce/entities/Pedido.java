@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.validation.constraints.FutureOrPresent;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,6 +20,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import org.br.serratec.ecommerce.enums.StatusPedidoEnum;
 
 @Entity
 @Table(name = "pedido")
@@ -30,15 +32,15 @@ public class Pedido {
 	@Column(name = "pedido_id")
 	private Integer pedidoId;
 
-//	@FutureOrPresent
+	@FutureOrPresent
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
 
-//	@FutureOrPresent
+	@FutureOrPresent
 	@Column(name = "data_entrega")
 	private LocalDate dataEntrega;
 
-//	@FutureOrPresent
+	@FutureOrPresent
 	@Column(name = "data_envio")
 	private LocalDate dataEnvio;
 

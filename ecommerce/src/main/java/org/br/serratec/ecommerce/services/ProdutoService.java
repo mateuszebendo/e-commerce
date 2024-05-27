@@ -47,25 +47,24 @@ public class ProdutoService {
 		return produtoDtoSalvo;
 	}
 
-	public ProdutoDTO update(MultipartFile file, ProdutoDTO produtoDto) throws IOException {
-		Imagem imagem;
+	public ProdutoDTO update(ProdutoDTO produtoDto) throws IOException {
 		Integer produtoId = produtoDto.getProdutoId();
-		Optional<Produto> opProduto = produtoRepository.findById(produtoId);
-		//.orElseThrow(
-		//		() -> new EntidadeNotFoundException("Não foi encontrado nenhum Produto com id " + produtoId));
-		Produto produtoBanco = opProduto.get();
-		produtoBanco.setProdutoId(produtoDto.getProdutoId());
+		Produto produtoBanco = produtoRepository.findById(produtoId).orElseThrow(
+                () -> new EntidadeNotFoundException("Não foi encontrado nenhum Produto com id " + produtoId));
 		produtoBanco.setNome(produtoDto.getNome());
 		produtoBanco.setQtdEstoque(produtoDto.getQtdEstoque());
-		produtoBanco.setDataCadastro(produtoDto.getDataCadastro());
 		produtoBanco.setValorUnitario(produtoDto.getValorUnitario());
 		produtoBanco.setCategoria(produtoDto.getCategoria());
+		produtoRepository.saveAndFlush(modelMapper.map(produtoDto, Produto.class));
+		ProdutoDTO produtoDtoSalvo = modelMapper.map(produtoBanco, ProdutoDTO.class);
+		return produtoDtoSalvo;
+	}
 
-		if (produtoBanco.getImagem() == null)
-			imagem = new Imagem();
-		else
-			imagem = produtoBanco.getImagem();
+	public ProdutoDTO updateImagem(MultipartFile file, Integer produtoId) throws IOException {
+		Produto produtoBanco = produtoRepository.findById(produtoId).orElseThrow(
+				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Produto com id " + produtoId));
 
+		Imagem imagem = produtoBanco.getImagem();
 		imagem.setData(file.getBytes());
 		imagem.setMimetype(file.getContentType());
 		imagemRepository.saveAndFlush(imagem);
@@ -73,7 +72,7 @@ public class ProdutoService {
 		produtoBanco.getImagem().setData(file.getBytes());
 		produtoBanco.getImagem().setMimetype(file.getContentType());
 
-		produtoRepository.saveAndFlush(modelMapper.map(produtoDto, Produto.class));
+		produtoRepository.saveAndFlush(produtoBanco);
 		ProdutoDTO produtoDtoSalvo = modelMapper.map(produtoBanco, ProdutoDTO.class);
 		return produtoDtoSalvo;
 	}
@@ -106,10 +105,8 @@ public class ProdutoService {
 	}
 
 	public Imagem getImagem(Integer id) {
-		Optional<Produto> opProduto = produtoRepository.findById(id);
-		if (opProduto.isPresent()) {
-			return opProduto.get().getImagem();
-		}
-		return null;
+		Produto produto = produtoRepository.findById(id)
+				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Produto com Id " + id));
+		return produto.getImagem();
 	}
 }

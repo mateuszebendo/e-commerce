@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,13 +46,14 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
 
+
 	public Cliente() {
 	}
 
 	public Cliente(ClienteDTO clienteDto) {
 		this.clienteId = clienteDto.getClienteId();
-		this.email = clienteDto.getEmail();
 		this.nomeCompleto = clienteDto.getNomeCompleto();
+		this.email = clienteDto.getEmail();
 		this.cpf = clienteDto.getCpf();
 		this.telefone = clienteDto.getTelefone();
 		this.dataNascimento = clienteDto.getDataNascimento();
@@ -113,5 +114,13 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 }

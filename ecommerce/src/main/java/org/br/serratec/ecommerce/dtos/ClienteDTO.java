@@ -6,8 +6,8 @@ import org.br.serratec.ecommerce.entities.Endereco;
 
 public class ClienteDTO {
 	private Integer clienteId;
-	private String email;
 	private String nomeCompleto;
+	private String email;
 	private String cpf;
 	private String telefone;
 	private LocalDate dataNascimento;
@@ -16,11 +16,11 @@ public class ClienteDTO {
 	public ClienteDTO() {
 	}
 
-	public ClienteDTO(Integer clienteId, String email, String nomeCompleto, String cpf, String telefone,
-			LocalDate dataNascimento, Endereco endereco) {
+	public ClienteDTO(Integer clienteId, String nomeCompleto, String email, String cpf, String telefone,
+					  LocalDate dataNascimento, Endereco endereco) {
 		this.clienteId = clienteId;
-		this.email = email;
 		this.nomeCompleto = nomeCompleto;
+		this.email = email;
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
@@ -35,20 +35,20 @@ public class ClienteDTO {
 		this.clienteId = clienteId;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}
 
 	public void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getCpf() {

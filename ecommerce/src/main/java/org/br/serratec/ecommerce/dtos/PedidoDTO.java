@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.br.serratec.ecommerce.entities.Cliente;
 import org.br.serratec.ecommerce.entities.ItemPedido;
-import org.br.serratec.ecommerce.entities.StatusPedidoEnum;
+import org.br.serratec.ecommerce.enums.StatusPedidoEnum;
 
 public class PedidoDTO{
 	private Integer pedidoId;

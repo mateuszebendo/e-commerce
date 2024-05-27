@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 import org.br.serratec.ecommerce.dtos.ConsultaCepDTO;
 import org.br.serratec.ecommerce.dtos.EnderecoDTO;
+import org.br.serratec.ecommerce.entities.Cliente;
 import org.br.serratec.ecommerce.entities.Endereco;
 import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.EnderecoRepository;
@@ -85,12 +86,19 @@ public class EnderecoService {
 	public EnderecoDTO deleteById(Integer id) {
 		Endereco endereco = enderecoRepository.findById(id)
 				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Endereço com Id " + id));
+		Cliente cliente = endereco.getCliente();
+
+		if (cliente != null) {
+			endereco = enderecoRepository.findById(id).orElseThrow(() -> new EntidadeNotFoundException(
+					"Erro endereço atrelado a um usuário, por favor modifique antes da exclusão."));
+		}
+
 		EnderecoDTO newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
+
 		if (endereco != null) {
 			enderecoRepository.delete(endereco);
 			return newEnderecoDTO;
 		}
 		return newEnderecoDTO;
 	}
-
 }
