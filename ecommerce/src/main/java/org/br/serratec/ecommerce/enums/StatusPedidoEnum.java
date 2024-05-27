@@ -1,4 +1,4 @@
-package org.br.serratec.ecommerce.entities;
+package org.br.serratec.ecommerce.enums;
 
 public enum StatusPedidoEnum {
 	ABERTO,  				// Todo pedido criado

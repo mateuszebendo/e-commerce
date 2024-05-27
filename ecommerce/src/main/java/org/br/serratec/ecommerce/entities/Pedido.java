@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.validation.constraints.FutureOrPresent;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,11 +21,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import org.br.serratec.ecommerce.enums.StatusPedidoEnum;
+
 import jakarta.validation.constraints.FutureOrPresent;
+
 
 @Entity
 @Table(name = "pedido")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "pedidoId", scope = Pedido.class)
 public class Pedido {
 
 	@Id

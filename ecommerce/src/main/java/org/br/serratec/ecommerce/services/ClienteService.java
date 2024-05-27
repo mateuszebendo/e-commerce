@@ -55,11 +55,12 @@ public class ClienteService {
 		return clientesDto;
 	}
 
-	public Cliente deleteById(Integer id) {
+	public ClienteDTO deleteById(Integer id) {
 		Cliente cliente = clienteRepository.findById(id)
 				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Cliente com Id " + id));
 		clienteRepository.deleteById(id);
-		return cliente;
+		ClienteDTO clienteDto = modelMapper.map(cliente, ClienteDTO.class);
+		return clienteDto;
 	}
 
 	public long count() {

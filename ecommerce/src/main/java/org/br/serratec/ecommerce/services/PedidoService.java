@@ -8,7 +8,7 @@ import org.br.serratec.ecommerce.dtos.PedidoDTO;
 import org.br.serratec.ecommerce.dtos.RelatorioPedidoDTO;
 import org.br.serratec.ecommerce.entities.ItemPedido;
 import org.br.serratec.ecommerce.entities.Pedido;
-import org.br.serratec.ecommerce.entities.StatusPedidoEnum;
+import org.br.serratec.ecommerce.enums.StatusPedidoEnum;
 import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.PedidoRepository;
 import org.modelmapper.ModelMapper;
@@ -63,10 +63,13 @@ public class PedidoService {
 		Integer pedidoId = pedidoDTO.getPedidoId();
 		Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + pedidoId));
-
+		if(pedido.getDataPedido() == null && pedido.getDataEnvio() == null){
+			throw new NullPointerException("Ocorreu um erro: Pedido não realizado ou enviado.");
+		}
 		pedido.setDataEntrega(pedidoDTO.getDataEntrega());
 		pedido.setStatus(StatusPedidoEnum.FINALIZADO);
 		pedidoRepository.save(pedido);
+
 		return modelMapper.map(pedido, PedidoDTO.class);
 	}
 
@@ -75,7 +78,7 @@ public class PedidoService {
 		Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + pedidoId));
 
-		if (pedidoDTO.getDataPedido() != null && pedido.getItensPedido().size() > 0) {
+		if (pedidoDTO.getDataPedido() != null && !pedido.getItensPedido().isEmpty()) {
 			pedido.setDataPedido(pedidoDTO.getDataPedido());
 			pedido.setStatus(StatusPedidoEnum.REALIZADO);
 

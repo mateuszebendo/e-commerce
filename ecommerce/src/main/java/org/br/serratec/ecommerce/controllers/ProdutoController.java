@@ -3,16 +3,13 @@ package org.br.serratec.ecommerce.controllers;
 
 import java.io.IOException;
 import java.util.List;
-
 import org.br.serratec.ecommerce.dtos.ProdutoDTO;
 import org.br.serratec.ecommerce.entities.Imagem;
-import org.br.serratec.ecommerce.repositories.ProdutoRepository;
 import org.br.serratec.ecommerce.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,8 +38,13 @@ public class ProdutoController {
     }
 
     @PutMapping
-    public ResponseEntity<ProdutoDTO> update(@RequestParam("file") MultipartFile file, @RequestPart("produto") ProdutoDTO produtoDto) throws IOException {
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.update(file, produtoDto));
+    public ResponseEntity<ProdutoDTO> update(@RequestBody ProdutoDTO produtoDto) throws IOException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.update(produtoDto));
+    }
+
+    @PutMapping("/update-imagem/{id}")
+    public ResponseEntity<ProdutoDTO> updateImagem(@RequestParam("file") MultipartFile file, @PathVariable Integer id) throws IOException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.updateImagem(file, id));
     }
 
     @DeleteMapping("/{id}")
