@@ -53,4 +53,9 @@ public class PedidoController {
 	public ResponseEntity<Object> delete(@PathVariable Integer id){
 		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.deleteById(id));
 	}
+
+	@DeleteMapping("/cancela/{id}")
+	public ResponseEntity<Object> cancelPedido(@PathVariable Integer id){
+		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.cancelaPedido(id));
+	}
 }
