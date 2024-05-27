@@ -29,16 +29,19 @@ public class ItemPedidoService {
 		ItemPedido newItemPedido = new ItemPedido(itemPedidoDTO);
 		ProdutoDTO produto = produtoService.findById(newItemPedido.getProduto().getProdutoId());
 
-		newItemPedido.setPrecoVenda(produto.getValorUnitario());
-		double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
-		newItemPedido.setValorBruto(valorBruto);
-		double valorLiquido = newItemPedido.getValorBruto()
-				- (newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto() / 100);
-		newItemPedido.setValorLiquido(valorLiquido);
+		if(itemPedidoDTO.getPercentualDesconto() <= 100 && itemPedidoDTO.getPercentualDesconto() >= 0){
+			newItemPedido.setPrecoVenda(produto.getValorUnitario());
+			double valorBruto = newItemPedido.getPrecoVenda() * newItemPedido.getQuantidade();
+			newItemPedido.setValorBruto(valorBruto);
+			double valorLiquido = newItemPedido.getValorBruto()
+					- (newItemPedido.getValorBruto() * newItemPedido.getPercentualDesconto() / 100);
+			newItemPedido.setValorLiquido(valorLiquido);
 
-		itemPedidoRepository.save(newItemPedido);
-		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(newItemPedido, ItemPedidoDTO.class);
-		return newItemPedidoDTO;
+			itemPedidoRepository.save(newItemPedido);
+			ItemPedidoDTO newItemPedidoDTO = modelMapper.map(newItemPedido, ItemPedidoDTO.class);
+			return newItemPedidoDTO;
+		}
+		throw new IllegalArgumentException("O percentual de desconto deve estar entre 0% e 100%");
 	}
 
 	public List<ItemPedidoDTO> saveAll(List<ItemPedidoDTO> listItemPedidoDTO) {
@@ -74,19 +77,22 @@ public class ItemPedidoService {
 		ItemPedido itemPedido = itemPedidoRepository.findById(itemPedidoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Item-Pedido com Id " + itemPedidoId));
 
-		ProdutoDTO produto = produtoService.findById(itemPedido.getProduto().getProdutoId());
-		itemPedido.setPrecoVenda(produto.getValorUnitario());
+		if(itemPedidoDTO.getPercentualDesconto() <= 100 && itemPedidoDTO.getPercentualDesconto() >= 0){
+			ProdutoDTO produto = produtoService.findById(itemPedido.getProduto().getProdutoId());
+			itemPedido.setPrecoVenda(produto.getValorUnitario());
 
-		double valorBruto = itemPedido.getPrecoVenda() * itemPedidoDTO.getQuantidade();
-		itemPedido.setValorBruto(valorBruto);
+			double valorBruto = itemPedido.getPrecoVenda() * itemPedidoDTO.getQuantidade();
+			itemPedido.setValorBruto(valorBruto);
 
-		double valorLiquido = itemPedido.getValorBruto()
-				- (itemPedido.getValorBruto() * itemPedidoDTO.getPercentualDesconto() / 100);
-		itemPedido.setValorLiquido(valorLiquido);
+			double valorLiquido = itemPedido.getValorBruto()
+					- (itemPedido.getValorBruto() * itemPedidoDTO.getPercentualDesconto() / 100);
+			itemPedido.setValorLiquido(valorLiquido);
 
-		itemPedidoRepository.save(itemPedido);
-		ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedido, ItemPedidoDTO.class);
-		return newItemPedidoDTO;
+			itemPedidoRepository.save(itemPedido);
+			ItemPedidoDTO newItemPedidoDTO = modelMapper.map(itemPedido, ItemPedidoDTO.class);
+			return newItemPedidoDTO;
+		}
+		throw new IllegalArgumentException("O percentual de desconto deve estar entre 0% e 100%");
 	}
 
 	public ItemPedidoDTO deleteById(Integer id) {

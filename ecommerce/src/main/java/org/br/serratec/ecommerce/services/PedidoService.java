@@ -39,6 +39,7 @@ public class PedidoService {
 		Pedido pedido = pedidoRepository.findById(id)
 				.orElseThrow(() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + id));
 		PedidoDTO newPedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
+		newPedidoDTO.setItensPedido(new ArrayList<>(pedido.getItensPedido()));
 		return newPedidoDTO;
 	}
 
@@ -51,6 +52,7 @@ public class PedidoService {
 		for (Pedido pedido : listaPedido) {
 			if (!pedido.getStatus().equals(StatusPedidoEnum.CANCELADO)) {
 				PedidoDTO pedidoDTO = modelMapper.map(pedido, PedidoDTO.class);
+				pedidoDTO.setItensPedido(new ArrayList<>(pedido.getItensPedido()));
 				listaPedidoDTO.add(pedidoDTO);
 			}
 		}
