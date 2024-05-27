@@ -32,7 +32,6 @@ public class PedidoDTO{
 		this.cliente = cliente;
 	}
 
-
 	public Integer getPedidoId() {
 		return pedidoId;
 	}
@@ -44,36 +43,47 @@ public class PedidoDTO{
 	public LocalDateTime getDataPedido() {
 		return dataPedido;
 	}
+
 	public void setDataPedido(LocalDateTime dataPedido) {
 		this.dataPedido = dataPedido;
 	}
+
 	public LocalDate getDataEntrega() {
 		return dataEntrega;
 	}
+
 	public void setDataEntrega(LocalDate dataEntrega) {
 		this.dataEntrega = dataEntrega;
 	}
+
 	public LocalDate getDataEnvio() {
 		return dataEnvio;
 	}
+
 	public void setDataEnvio(LocalDate dataEnvio) {
 		this.dataEnvio = dataEnvio;
 	}
+
 	public StatusPedidoEnum getStatus() {
 		return status;
 	}
+
 	public void setStatus(StatusPedidoEnum status) {
 		this.status = status;
 	}
+
 	public Double getValorTotal() {
 		return valorTotal;
 	}
+
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
@@ -85,5 +95,4 @@ public class PedidoDTO{
 	public void setItensPedido(List<ItemPedido> itensPedido) {
 		this.itensPedido = itensPedido;
 	}
-
 }
