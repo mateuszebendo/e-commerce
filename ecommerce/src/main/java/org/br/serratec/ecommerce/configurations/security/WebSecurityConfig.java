@@ -7,6 +7,7 @@ import org.br.serratec.ecommerce.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -23,7 +24,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
-
 @Configuration
 @EnableWebSecurity(debug = true)
 public class WebSecurityConfig {
@@ -33,19 +33,30 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults()) //habilita o cors e aplica o metodo (abaixo) corsConfigurationSource
-                .csrf(csrf -> csrf.disable()) //desabilita o csrf
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //define a politica de sessao
+                .cors(Customizer.withDefaults())
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/health-check", "/auth/signup", "/auth/**", "/api/roles/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll() //define as rotas publicas/abertas
-                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") //autoriza o acesso a rotas por perfis
-                        .anyRequest().authenticated()) //demais rotas, nao configuradas acima, so poderao ser acessadas mediante autenticacao
-        ;
+                        .requestMatchers("/health-check", "/auth/signup", "/auth/**", "/api/roles/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/clientes/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/categorias/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/categorias").hasRole("ADMIN")
+                        .requestMatchers("/pedidos/data-entrega").hasRole("ADMIN")
+                        .requestMatchers("/pedidos").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/item-pedido").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/enderecos").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET,"/produtos/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/produtos/**").hasRole("ADMIN")
 
 
-        http.authenticationProvider(authenticationProvider()); //define o provedor de autenticacao
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class); //define o filtro a ser aplicado no ciclo de vida da requisicao
+                        .anyRequest().authenticated());
+
+
+        http.authenticationProvider(authenticationProvider());
+
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

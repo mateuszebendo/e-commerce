@@ -28,17 +28,6 @@ public class PedidoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.save(pedidoDTO));
 	}
 
-	@PutMapping
-    public ResponseEntity<PedidoDTO> update(@RequestBody PedidoDTO pedidoDTO) throws Exception{
-		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.update(pedidoDTO));
-	}
-
-
-	@PutMapping("/data-entrega")
-    public ResponseEntity<PedidoDTO> updateDataEntrega(@RequestBody PedidoDTO pedidoDTO){
-		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.updateDataEntrega(pedidoDTO));
-	}
-
 	@GetMapping("/{id}")
 	public ResponseEntity<PedidoDTO> findById(@PathVariable Integer id) {
 		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findById(id));
@@ -49,13 +38,24 @@ public class PedidoController {
 		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.findAll());
 	}
 
+	@PutMapping
+	public ResponseEntity<PedidoDTO> update(@RequestBody PedidoDTO pedidoDTO) throws Exception {
+		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.update(pedidoDTO));
+	}
+
+	@PutMapping("/data-entrega")
+	public ResponseEntity<PedidoDTO> updateDataEntrega(@RequestBody PedidoDTO pedidoDTO) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.updateDataEntrega(pedidoDTO));
+	}
+
+	@PutMapping("/cancela/{id}")
+	public ResponseEntity<Object> cancelPedido(@PathVariable Integer id) {
+		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.cancelaPedido(id));
+	}
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> delete(@PathVariable Integer id){
+	public ResponseEntity<Object> delete(@PathVariable Integer id) {
 		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.deleteById(id));
 	}
 
-	@DeleteMapping("/cancela/{id}")
-	public ResponseEntity<Object> cancelPedido(@PathVariable Integer id){
-		return ResponseEntity.status(HttpStatus.OK).body(pedidoService.cancelaPedido(id));
-	}
 }
