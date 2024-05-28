@@ -48,14 +48,9 @@ public class WebSecurityConfig {
                         .requestMatchers("/enderecos").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.GET,"/produtos/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/produtos/**").hasRole("ADMIN")
-
-
-
                         .anyRequest().authenticated());
-
-
+      
         http.authenticationProvider(authenticationProvider());
-
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

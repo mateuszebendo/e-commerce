@@ -96,8 +96,12 @@ public class PedidoService {
 		}
 
 		if (pedidoDTO.getDataEnvio() != null) {
-			pedido.setDataEnvio(pedidoDTO.getDataEnvio());
-			pedido.setStatus(StatusPedidoEnum.ENVIADO);
+			if(pedido.getDataPedido() == null) {
+				throw new NullPointerException("Ocorreu um erro: Pedido não realizado");
+			}else {
+				pedido.setDataEnvio(pedidoDTO.getDataEnvio());
+				pedido.setStatus(StatusPedidoEnum.ENVIADO);
+			}
 		}
 
 		pedidoRepository.save(pedido);
