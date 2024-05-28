@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.br.serratec.ecommerce.dtos.ClienteDTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +45,7 @@ public class Cliente{
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
 

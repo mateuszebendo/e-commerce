@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import org.br.serratec.ecommerce.dtos.PedidoDTO;
+import org.br.serratec.ecommerce.enums.StatusPedidoEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,9 +21,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import org.br.serratec.ecommerce.enums.StatusPedidoEnum;
-
 import jakarta.validation.constraints.FutureOrPresent;
 
 
@@ -54,7 +51,6 @@ public class Pedido {
 	@Column(name = "valor_total")
 	private Double valorTotal;
 
-
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "cliente_id")
@@ -68,7 +64,7 @@ public class Pedido {
 	}
 
 	public Pedido(PedidoDTO pedidoDTO) {
-		this.dataPedido = pedidoDTO.getDataPedido();
+		this.dataPedido = LocalDateTime.now();
 		this.dataEntrega = pedidoDTO.getDataEntrega();
 		this.dataEnvio = pedidoDTO.getDataEnvio();
 		this.status = pedidoDTO.getStatus();
