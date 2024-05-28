@@ -131,4 +131,24 @@ public class Endereco {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	@Override
+	public String toString() {
+		return String.format(
+						"CEP            : %s\n" +
+						"Rua            : %s\n" +
+						"Bairro         : %s\n" +
+						"Cidade         : %s\n" +
+						"Número         : %s\n" +
+						"Complemento    : %s\n" +
+						"UF             : %s",
+				cep,
+				rua,
+				bairro,
+				cidade,
+				numero,
+				complemento,
+				uf
+		);
+	}
 }
