@@ -36,7 +36,6 @@ public class Pedido {
 	@Column(name = "pedido_id")
 	private Integer pedidoId;
 
-	@FutureOrPresent
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
 
