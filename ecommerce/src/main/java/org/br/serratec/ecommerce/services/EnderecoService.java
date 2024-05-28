@@ -12,6 +12,7 @@ import org.br.serratec.ecommerce.exceptions.EntidadeNotFoundException;
 import org.br.serratec.ecommerce.repositories.EnderecoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -89,16 +90,13 @@ public class EnderecoService {
 		Cliente cliente = endereco.getCliente();
 
 		if (cliente != null) {
-			endereco = enderecoRepository.findById(id).orElseThrow(() -> new EntidadeNotFoundException(
-					"Erro endereço atrelado a um usuário, por favor modifique antes da exclusão."));
+			throw new DataIntegrityViolationException(
+					"O endereço está associado a um usuário e não pode ser excluído.");
 		}
 
 		EnderecoDTO newEnderecoDTO = modelMapper.map(endereco, EnderecoDTO.class);
 
-		if (endereco != null) {
-			enderecoRepository.delete(endereco);
-			return newEnderecoDTO;
-		}
+		enderecoRepository.delete(endereco);
 		return newEnderecoDTO;
 	}
 }

@@ -23,7 +23,7 @@ public class ProdutoController {
 
 
     @PostMapping
-    public ResponseEntity<ProdutoDTO> save(@RequestParam("file") MultipartFile file, @RequestPart("produto") ProdutoDTO produtoDto) throws IOException {
+    public ResponseEntity<ProdutoDTO> save(@RequestParam(value = "file", required = true) MultipartFile file, @RequestPart("produto") ProdutoDTO produtoDto) throws IOException {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(file, produtoDto));
     }
 

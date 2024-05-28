@@ -42,14 +42,13 @@ public class WebSecurityConfig {
                         .requestMatchers("/clientes/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/categorias/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/categorias").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/categorias/{id}").hasRole("ADMIN")
                         .requestMatchers("/pedidos/data-entrega").hasRole("ADMIN")
                         .requestMatchers("/pedidos").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/item-pedido").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/enderecos").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.GET,"/produtos/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/produtos/**").hasRole("ADMIN")
-
-
 
                         .anyRequest().authenticated());
 

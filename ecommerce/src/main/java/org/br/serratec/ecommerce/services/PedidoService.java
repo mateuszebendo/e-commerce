@@ -78,9 +78,9 @@ public class PedidoService {
 		Pedido pedido = pedidoRepository.findById(pedidoId).orElseThrow(
 				() -> new EntidadeNotFoundException("Não foi encontrado nenhum Pedido com Id " + pedidoId));
 
-		if (pedidoDTO.getDataPedido() != null && !pedido.getItensPedido().isEmpty()) {
+		if (pedidoDTO.getStatus().equals(StatusPedidoEnum.REALIZADO) && !pedido.getItensPedido().isEmpty()) {
 			pedido.setDataPedido(pedidoDTO.getDataPedido());
-			pedido.setStatus(StatusPedidoEnum.REALIZADO);
+			pedido.setStatus(pedidoDTO.getStatus());
 
 			Double valorTotal = 0.0;
 			for (ItemPedido itemPedido : pedido.getItensPedido()) {

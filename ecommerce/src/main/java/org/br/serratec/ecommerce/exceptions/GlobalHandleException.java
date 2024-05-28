@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -77,7 +78,15 @@ public class GlobalHandleException extends ResponseEntityExceptionHandler {
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
 		problemDetail.setTitle("Erro na requisição");
 		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/bad-request"));
-		//problemDetail.setDetail("Ocorreu um erro ao processar a Requisição");
+		return problemDetail;
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	ProblemDetail handleAccessDeniedException(AccessDeniedException e) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
+		problemDetail.setTitle("Erro de autenticação");
+		problemDetail.setType(URI.create("https://api.ecommerce.com/errors/forbidden"));
+		problemDetail.setDetail("Usuário não autenticado. Realize o login antes de prosseguir.");
 		return problemDetail;
 	}
 
