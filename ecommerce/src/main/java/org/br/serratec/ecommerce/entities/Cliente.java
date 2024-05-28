@@ -126,4 +126,20 @@ public class Cliente{
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
+
+	@Override
+	public String toString() {
+		var enderecoString = new StringBuilder();
+		enderecoString.append(endereco.toString()).append("\n");
+
+		return String.format(
+						"Nome           : %s\n" +
+						"Telefone       : %s\n" +
+						"--------------------------------------------------------\n" +
+						"%s",
+				nomeCompleto,
+				telefone,
+				enderecoString
+		);
+	}
 }
