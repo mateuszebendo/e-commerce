@@ -21,7 +21,6 @@ public class PedidoDTO{
 	public PedidoDTO() {
 	}
 
-
 	public PedidoDTO(LocalDateTime dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, StatusPedidoEnum status,
 					 Double valorTotal, Cliente cliente) {
 		this.dataPedido = dataPedido;
